@@ -1,8 +1,11 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+
 let SayHello = (props) => {
   return React.createElement(
     "h1",
     { id: "title" },
-    `Hello ${props.firstName} from React!`
+    `Hello ${props.firstName} from React!`,
   );
 };
 
@@ -13,10 +16,10 @@ let App = () => {
     React.createElement("h1", null, "Welcome to React!"),
     React.createElement(SayHello, { firstName: "Sankar" }),
     React.createElement(SayHello, { firstName: "John" }),
-    React.createElement(SayHello, { firstName: "Jane" })
+    React.createElement(SayHello, { firstName: "Jane" }),
   );
 };
 
 let container = document.getElementById("root");
-let root = ReactDOM.createRoot(container);
+let root = createRoot(container);
 root.render(React.createElement(App, { firstName: "Sankar" }));
