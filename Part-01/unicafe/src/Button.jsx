@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Button() {
+function Button(props) {
   return (
-    <div>
-      
-    </div>
+    
+      <button onClick={props.onClick}>{props.text}</button>
+   
   )
 }
 

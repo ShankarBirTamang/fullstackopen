@@ -1,4 +1,5 @@
 
+import Button from './Button';
 import StatisticLine from './StatisticLine';
 import { useState } from 'react';
 const Statistics = ({good,setGood,bad,setBad,neutral,setNeutral}) => {
@@ -6,10 +7,10 @@ const totalFeedback = good + neutral + bad;
   return (
     <>
     <h1>give feedback</h1>
-    <button onClick={() => setGood(good + 1)}>good</button>
-    <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-    <button onClick={() => setBad(bad + 1)}>bad</button>
-
+    <Button text="good" onClick={() => setGood(good + 1)} />
+    <Button text="neutral" onClick={() => setNeutral(neutral + 1)} />
+    <Button text="bad" onClick={() => setBad(bad + 1)} />
+    
     <h1>statistics</h1>
     {
       totalFeedback === 0 
