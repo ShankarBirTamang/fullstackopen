@@ -2,7 +2,8 @@ import { useState } from "react";
 import Display from "./Display";
 
 const App = () => {
-  const [count, setCount] = useState(1);
+  let initialState = { left: 1, right: 1 };
+  const [clicks, setClicks] = useState(initialState);
   console.log("rendering App component");
   
 
@@ -11,7 +12,7 @@ const App = () => {
   // }, 1000);
 
   return <div>
-    <Display count={count} setCount={setCount} />
+    <Display clicks={clicks} setClicks={setClicks} />
   </div>;
 };
 
