@@ -1,14 +1,17 @@
 import MyButton from "./MyButton";
 
-function Display({clicks, setClicks}) {
+function Display({clicks, setClicks,history,setHistory,totalClicks,setTotalClicks}) {
   // The Display component receives count and setCount as props
   console.log("rendering Display component");
   const handleLeftIncrement = () =>{
+    let newLeftClick = clicks.left+1;
     let newState = {
-      left: clicks.left + 1,
+      left: newLeftClick,
       right: clicks.right
     }
     setClicks(newState);
+    setHistory([...history, '+L']);
+    setTotalClicks(newLeftClick + clicks.right);
   }
   const handleRightIncrement = () =>{
     let newState = {
@@ -16,14 +19,18 @@ function Display({clicks, setClicks}) {
       right: clicks.right + 1
     } 
     setClicks(newState);
+    setHistory([...history, '+R']);
+    setTotalClicks(totalClicks + 1);
   }
   const handleLeftDecrement = () =>{
     let newState = {
       left: clicks.left - 1,
       right: clicks.right
       }
-      setClicks(newState);
-      }
+    setClicks(newState);
+    setHistory([...history, '-L']);
+    setTotalClicks(totalClicks - 1);
+  }
 
   const handleRightDecrement = () =>{
     let newState = {
@@ -31,6 +38,8 @@ function Display({clicks, setClicks}) {
       right: clicks.right - 1
       }
       setClicks(newState);
+      setHistory([...history, '-R']);
+      setTotalClicks(totalClicks - 1);
       }
 
 
@@ -48,6 +57,7 @@ function Display({clicks, setClicks}) {
       <MyButton onClick={handleRightIncrement} text="Right Increment"/>
       <MyButton onClick={handleRightDecrement} text="Right Decrement"/>
     </div>
+    Total Clicks : {totalClicks}
     </div>
   )
 }
