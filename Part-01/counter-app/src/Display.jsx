@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 function Display() {
-  // The Display component receives count and setCount as props
   console.log("rendering Display component");
     const [count, setCount] = useState(1);
 
