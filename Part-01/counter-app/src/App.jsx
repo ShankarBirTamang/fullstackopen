@@ -1,5 +1,5 @@
-const App = () => {
-  return <div>Hello there</div>;
+const App = (props) => {
+  return <div>Hello the count is {props.counter}</div>;
 };
 
 export default App;
