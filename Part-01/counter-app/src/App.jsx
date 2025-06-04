@@ -1,13 +1,19 @@
 import { useState } from "react";
+import Display from "./Display";
 
 const App = () => {
-  const [count, setCount] = useState(1);
+  // const [count, setCount] = useState(1);
+  console.log("rendering App component");
+  
 
-  setTimeout(() => {
-    setCount(count + 1);
-  }, 1000);
+  // setTimeout(() => {
+  //   setCount(count + 1);
+  // }, 1000);
 
-  return <div>Hello the count is {count}</div>;
+  return <div>
+    {/* <Display count={count} setCount={setCount} /> */}
+    <Display />
+  </div>;
 };
 
 export default App;
