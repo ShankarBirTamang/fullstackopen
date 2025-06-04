@@ -1,3 +1,5 @@
+
+import StatisticLine from './StatisticLine';
 import { useState } from 'react';
 const Statistics = ({good,setGood,bad,setBad,neutral,setNeutral}) => {
 const totalFeedback = good + neutral + bad;
@@ -14,12 +16,13 @@ const totalFeedback = good + neutral + bad;
       ? <p>No feedback given</p> 
       : (
         <>
-          <p>good {good}</p>
-          <p>neutral {neutral}</p>
-          <p>bad {bad}</p>
-          <p>all {good + neutral + bad}</p>
-          <p>average {(good - bad) / (good + neutral + bad)}</p>
-          <p>positive {good / (good + neutral + bad) * 100} %</p>
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <StatisticLine text="all" value={totalFeedback} />
+          <StatisticLine text="average" value={(good - bad) / totalFeedback} />
+          <StatisticLine text="positive" value={(good / totalFeedback) * 100 + ' %'} />
+        
         </>
       )
     }
