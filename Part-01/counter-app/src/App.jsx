@@ -2,7 +2,7 @@ import { useState } from "react";
 import Display from "./Display";
 
 const App = () => {
-  // const [count, setCount] = useState(1);
+  const [count, setCount] = useState(1);
   console.log("rendering App component");
   
 
@@ -11,8 +11,7 @@ const App = () => {
   // }, 1000);
 
   return <div>
-    {/* <Display count={count} setCount={setCount} /> */}
-    <Display />
+    <Display count={count} setCount={setCount} />
   </div>;
 };
 

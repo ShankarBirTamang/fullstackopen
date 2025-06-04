@@ -1,12 +1,9 @@
-import { useState } from 'react';
 
-function Display() {
+function Display({count, setCount}) {
+  // The Display component receives count and setCount as props
   console.log("rendering Display component");
-    const [count, setCount] = useState(1);
-
   
   return (
-    
     <div>
     <h1>Counter App</h1>
     <p>Hello, the count is {count}</p>
