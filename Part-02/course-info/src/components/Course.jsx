@@ -1,16 +1,11 @@
-import React from 'react'
+import Content from "./Content"
+import Header from "./Header"
 
 const Course = ({course}) => {
   return (
     <div>
-        <h2>{course.name}</h2>
-        <ul>
-            {course.parts.map(part => (
-            <li key={part.id}>
-                {part.name} {part.exercises}
-            </li>
-            ))}
-        </ul>
+        <Header name={course.name} />
+        <Content course={course} />
        
     </div>
   )
