@@ -1,11 +1,11 @@
+import Notes from "./components/Notes";
+
 const App = ({notes}) => {
   return <>
     <h1>Notes</h1>
     <ul>
       {notes.map(note => (
-        <li key={note.id}>
-          {note.content} <strong>{note.important ? "Important" : "Not Important"}</strong>
-        </li>
+        <Notes key={note.id} note={note} />
       ))}
     </ul>
     <p>Note count: {notes.length}</p>
