@@ -19,14 +19,17 @@ const App = ({notes}) => {
     ]);
     setNewNote("");
   }
+
   const handleChange = (e)=>{
     setNewNote(e.target.value);
   }
 
+  const notesToShow = myNotes.filter(note => note.important);
+
   return <>
     <h1>Notes</h1>
     <ul>
-      {myNotes.map(note => (
+      {notesToShow.map(note => (
         <Notes key={note.id} note={note} />
       ))}
     </ul>
