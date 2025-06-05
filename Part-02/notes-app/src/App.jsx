@@ -27,8 +27,13 @@ const App = ({notes}) => {
 
   const notesToShow = myNotes.filter(note => showAll ? true : note.important);
 
+  const handleShow = () => {
+    setShowAll(!showAll);
+  }
+
   return <>
     <h1>Notes</h1>
+    <button onClick={handleShow}>show {showAll?"Important":"All"}</button>
     <ul>
       {notesToShow.map(note => (
         <Notes key={note.id} note={note} />
