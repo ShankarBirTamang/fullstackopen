@@ -4,6 +4,7 @@ import { useState } from "react";
 const App = ({notes}) => {
   const [myNotes,setMyNotes] = useState(notes);
   const [newNote, setNewNote] = useState("");
+  const [showAll, setShowAll] = useState(true);
 
   const handleSubmit = (e)=>{
     e.preventDefault();
@@ -24,7 +25,7 @@ const App = ({notes}) => {
     setNewNote(e.target.value);
   }
 
-  const notesToShow = myNotes.filter(note => note.important);
+  const notesToShow = myNotes.filter(note => showAll ? true : note.important);
 
   return <>
     <h1>Notes</h1>
