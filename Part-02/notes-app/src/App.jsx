@@ -1,10 +1,14 @@
 import Notes from "./components/Notes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = ({notes}) => {
   const [myNotes,setMyNotes] = useState(notes);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
+
+  useEffect(() => {
+    console.log("App component mounted or updated");
+  }, []);
 
   const handleSubmit = (e)=>{
     e.preventDefault();
