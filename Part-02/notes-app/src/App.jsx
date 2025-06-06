@@ -23,7 +23,7 @@ const App = () => {
     let myNote = {
         content: newNote,
         date: new Date().toISOString().split('T')[0],
-        important: Math.random() > 0.5 
+        correct: Math.random() > 0.5 
     }
     setMyNotes([...myNotes, newNote]);
     let postData = axios.post("http://localhost:3001/notes", myNote);
@@ -39,18 +39,30 @@ const App = () => {
     setNewNote(e.target.value);
   }
 
-  const notesToShow = myNotes.filter(note => showAll ? true : note.important);
+  const notesToShow = myNotes.filter(note => showAll ? true : note.correct);
 
   const handleShow = () => {
     setShowAll(!showAll);
   }
 
+  const updateNote = (id) => {
+    console.log("Updating note with id:", id);
+   let currentNode = myNotes.find(note => note.id === id);
+   let updatedNote ={...currentNode, correct: !currentNode.correct};
+   let putPromise = axios.put(`http://localhost:3001/notes/${id}`, updatedNote);
+   putPromise.then(response =>{
+    let updatedData = response.data;
+    console.log("Note updated successfully:", updatedData);
+    setMyNotes(myNotes.map(note => note.id === id ? updatedData : note));
+   });
+  }
+
   return <>
     <h1>Notes</h1>
-    <button onClick={handleShow}>show {showAll?"Important":"All"}</button>
+    <button onClick={handleShow}>💡 Show {showAll?"Correct Only":"All"}</button>
     <ul>
       {notesToShow.map(note => (
-        <Notes key={note.id} note={note} />
+        <Notes key={note.id} note={note} updateNote={()=>{updateNote(note.id)}} />
       ))}
     </ul>
     <p>Note count: {myNotes.length}</p>
