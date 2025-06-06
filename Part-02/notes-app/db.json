@@ -40,7 +40,7 @@
       "id": 7,
       "content": "JSON is a lightweight data interchange format",
       "date": "2023-01-07",
-      "important": true
+      "important": false
     }
   ]
 }
