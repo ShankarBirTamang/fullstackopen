@@ -1,13 +1,24 @@
 import Notes from "./components/Notes";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
-const App = ({notes}) => {
-  const [myNotes,setMyNotes] = useState(notes);
+const App = () => {
+  const [myNotes,setMyNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
     console.log("App component mounted or updated");
+    //1.Get data from backend server
+    let myAxiosData = axios.get("http://localhost:3001/notes");
+    console.log(myAxiosData);
+    //2.Set the data to myNotes state
+    myAxiosData.then(response => {
+      console.log("Data fetched successfully:", response.data);
+      setMyNotes(response.data);
+    }).catch(error => {
+      console.error("Error fetching notes:", error);
+    });
   }, []);
 
   const handleSubmit = (e)=>{
