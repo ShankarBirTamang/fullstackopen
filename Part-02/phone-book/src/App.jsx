@@ -2,7 +2,7 @@ import { useState ,useEffect} from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import axios from 'axios';
+import phoneService from './services/phoneService'; 
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -11,10 +11,10 @@ const App = () => {
   const [newPhoneNo, setNewPhoneNo] = useState('');
 
   useEffect(() => {
-    const myAxiosData = axios.get("http://localhost:3001/persons");
-    myAxiosData.then(response => {
-      console.log("Data fetched successfully:", response.data);
-      setPersons(response.data);
+    const myAxiosData = phoneService.getAll();
+    myAxiosData.then(myData => {
+      console.log("Data fetched successfully:", myData);
+      setPersons(myData);
     }).catch(error => {
       console.error("Error fetching persons:", error);
     });
@@ -23,13 +23,23 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Adding a new person");
-        if (persons.some(person => person.name === newName)) {
+    if (persons.some(person => person.name === newName)) {
       alert(`${newName} is already added to phonebook`);
       setNewName("");
       setNewPhoneNo("");
       return;
     }
-    setPersons([...persons, { name: newName , phone: newPhoneNo }]);
+    let myNewPerson = {
+      name: newName,
+      phone: newPhoneNo
+    }
+    let postData = phoneService.create(myNewPerson);
+    postData.then(response => {
+      console.log("Person added successfully:", response.data);
+      setPersons([...persons, response.data]); // Update state after getting response with ID
+    }).catch(error => {
+      console.error("Error adding person:", error);
+    });
     setNewName("");
     setNewPhoneNo("");
   }
