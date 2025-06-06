@@ -8,31 +8,30 @@ const App = () => {
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    console.log("App component mounted or updated");
-    //1.Get data from backend server
     let myAxiosData = axios.get("http://localhost:3001/notes");
-    console.log(myAxiosData);
-    //2.Set the data to myNotes state
-    myAxiosData.then(response => {
-      console.log("Data fetched successfully:", response.data);
-      setMyNotes(response.data);
-    }).catch(error => {
-      console.error("Error fetching notes:", error);
-    });
-  }, []);
+    console.log("Fetching notes from server");
+      myAxiosData.then(response => {
+        setMyNotes(response.data);
+      }).catch(error => {
+        console.error("Error fetching notes:", error);
+      });
+    }, []);
 
   const handleSubmit = (e)=>{
     e.preventDefault();
     console.log("Adding a new note");
-    setMyNotes([
-      ...myNotes,
-      {
-        id: myNotes.length + 1,
+    let myNote = {
         content: newNote,
         date: new Date().toISOString().split('T')[0],
         important: Math.random() > 0.5 
-      }
-    ]);
+    }
+    setMyNotes([...myNotes, newNote]);
+    let postData = axios.post("http://localhost:3001/notes", myNote);
+    postData.then(response => {
+      console.log("Note added successfully:", response.data);
+    }).catch(error => {
+      console.error("Error adding note:", error);
+    });
     setNewNote("");
   }
 
