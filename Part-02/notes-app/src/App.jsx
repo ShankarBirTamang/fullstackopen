@@ -1,6 +1,7 @@
 import Notes from "./components/Notes";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import noteService from "./services/notes";
 
 const App = () => {
   const [myNotes,setMyNotes] = useState([]);
@@ -8,31 +9,32 @@ const App = () => {
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    let myAxiosData = axios.get("http://localhost:3001/notes");
+    let myAxiosData = noteService.getAll();
     console.log("Fetching notes from server");
-      myAxiosData.then(response => {
-        setMyNotes(response.data);
+      myAxiosData.then(myData => {
+        myData.push({id: 0, content: "This is a fake note", date: "2023-10-01", correct: true}); // Adding a sample note
+        setMyNotes(myData);
       }).catch(error => {
         console.error("Error fetching notes:", error);
       });
     }, []);
 
   const handleSubmit = (e)=>{
-    e.preventDefault();
-    console.log("Adding a new note");
-    let myNote = {
-        content: newNote,
-        date: new Date().toISOString().split('T')[0],
-        correct: Math.random() > 0.5 
-    }
-    setMyNotes([...myNotes, newNote]);
-    let postData = axios.post("http://localhost:3001/notes", myNote);
-    postData.then(response => {
-      console.log("Note added successfully:", response.data);
-    }).catch(error => {
-      console.error("Error adding note:", error);
-    });
-    setNewNote("");
+      e.preventDefault();
+      console.log("Adding a new note");      
+      let myNote = {
+          content: newNote,
+          date: new Date().toISOString().split('T')[0],
+          correct: Math.random() > 0.5 
+      }
+      let postData = noteService.create(myNote);
+      postData.then(response => {
+        console.log("Note added successfully:", response.data);
+        setMyNotes([...myNotes, response.data]); // Update state after getting response with ID
+      }).catch(error => {
+        console.error("Error adding note:", error);
+      });
+      setNewNote("");
   }
 
   const handleChange = (e)=>{
@@ -46,15 +48,24 @@ const App = () => {
   }
 
   const updateNote = (id) => {
-    console.log("Updating note with id:", id);
-   let currentNode = myNotes.find(note => note.id === id);
-   let updatedNote ={...currentNode, correct: !currentNode.correct};
-   let putPromise = axios.put(`http://localhost:3001/notes/${id}`, updatedNote);
-   putPromise.then(response =>{
-    let updatedData = response.data;
-    console.log("Note updated successfully:", updatedData);
-    setMyNotes(myNotes.map(note => note.id === id ? updatedData : note));
-   });
+      console.log("Updating note with id:", id);
+      let currentNode = myNotes.find(note => note.id === id);
+      let updatedNote ={...currentNode, correct: !currentNode.correct};
+      let putPromise = noteService.update(id, updatedNote);
+
+      putPromise.then(response =>{
+      let updatedData = response.data;
+      console.log("Note updated successfully:", updatedData);
+      setMyNotes(myNotes.map(note => note.id === id ? updatedData : note));
+    }).catch(error => {
+      console.error("Error updating note:", error);
+      console.dir(error);
+      if(error.response.status === 404) {
+        alert(`Sorry! this note ""${currentNode.content}"" does not exist in the database`);
+      }else{
+        alert("An error occurred while updating the note.");
+      }
+    });
   }
 
   return <>

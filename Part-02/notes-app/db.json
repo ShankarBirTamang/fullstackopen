@@ -28,7 +28,7 @@
       "id": "5",
       "content": "React is a JavaScript library for building user interfaces",
       "date": "2023-01-05",
-      "correct": true
+      "correct": false
     },
     {
       "id": "6",
@@ -40,30 +40,6 @@
       "id": "7",
       "content": "JSON is a lightweight data interchange format",
       "date": "2023-01-07",
-      "correct": true
-    },
-    {
-      "id": "1cf2",
-      "content": "a",
-      "date": "2025-06-06",
-      "correct": false
-    },
-    {
-      "id": "ba87",
-      "content": "",
-      "date": "2025-06-06",
-      "correct": false
-    },
-    {
-      "id": "6f94",
-      "content": "",
-      "date": "2025-06-06",
-      "correct": false
-    },
-    {
-      "id": "c908",
-      "content": "ne note",
-      "date": "2025-06-06",
       "correct": false
     }
   ]
