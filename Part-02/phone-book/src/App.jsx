@@ -11,6 +11,29 @@ const App = () => {
   const [newPhoneNo, setNewPhoneNo] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateId, setUpdateId] = useState(null);
+  const textStyle = {
+        margin: '20px auto',
+        textAlign: 'center',
+        width: '100%',
+        color: '#2196F3',
+        fontSize: '2em',
+        fontWeight: '500'
+      };
+
+  const flexContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '20px',
+        flexWrap: 'wrap',
+        margin: '0 auto',
+        maxWidth: '900px'
+      };
+
+  const subHeadingStyle = {
+        ...textStyle,
+        fontSize: '1.5em',
+        marginBottom: '10px'
+      };
 
   useEffect(() => {
     const myAxiosData = phoneService.getAll();
@@ -129,25 +152,33 @@ const App = () => {
         console.error("Error deleting person:", error);
         if (error.response && error.response.status === 404) {
           alert("Person not found");
-        }
-      });
+        }      });
     }
   }
+  
   return (
     <div>
-      <h2>Phonebook</h2>
-    
-      <Filter searchName={searchName} handleSearchChange={handleSearchChange} />      <h2>{isUpdating ? 'Update Contact' : 'Add a New'}</h2>      <PersonForm 
-        handleSubmit={handleSubmit} 
-        newName={newName} 
-        setNewName={setNewName} 
-        newPhoneNo={newPhoneNo} 
-        setNewPhoneNo={setNewPhoneNo}
-        isUpdating={isUpdating}
-        setIsUpdating={setIsUpdating}
-      />
+      <h2 style={textStyle}>Phonebook</h2>
+      <div style={flexContainerStyle}>
+        <div>
+          <h2 style={subHeadingStyle}>Search Contacts</h2>
+          <Filter searchName={searchName} handleSearchChange={handleSearchChange} />
+        </div>
+        <div>
+          <h2 style={subHeadingStyle}>{isUpdating ? 'Update Contact' : 'Add a New'}</h2>
+          <PersonForm 
+            handleSubmit={handleSubmit} 
+            newName={newName} 
+            setNewName={setNewName} 
+            newPhoneNo={newPhoneNo} 
+            setNewPhoneNo={setNewPhoneNo}
+            isUpdating={isUpdating}
+            setIsUpdating={setIsUpdating}
+          />
+        </div>
+      </div>
 
-      <h2>Numbers</h2>      
+      <h2 style={textStyle}>Numbers Record</h2>      
       <Persons 
         filteredPersons={filteredPersons} 
         handleUpdate={handleUpdate}

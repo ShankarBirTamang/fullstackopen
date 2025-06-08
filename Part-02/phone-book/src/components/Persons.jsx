@@ -5,7 +5,7 @@ function Persons({filteredPersons , handleUpdate, handleDelete}) {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px',
-    margin: '5px 0',
+    margin: '5px auto',
     backgroundColor: '#f5f5f5',
     borderRadius: '5px',
     width: '400px'
