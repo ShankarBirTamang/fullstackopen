@@ -9,6 +9,8 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [searchName, setSearchName] = useState('');
   const [newPhoneNo, setNewPhoneNo] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateId, setUpdateId] = useState(null);
 
   useEffect(() => {
     const myAxiosData = phoneService.getAll();
@@ -22,28 +24,78 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Adding a new person");
-    if (persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+    
+    if (isUpdating) {
+      // Handle Update
+      const updatedPerson = {
+        name: newName,
+        phone: newPhoneNo,
+        id: updateId
+      };
+      
+      phoneService.update(updateId, updatedPerson)
+        .then(response => {
+          setPersons(persons.map(person => 
+            person.id === updateId ? response.data : person
+          ));
+          setNewName("");
+          setNewPhoneNo("");
+          setIsUpdating(false);
+          setUpdateId(null);
+        })
+        .catch(error => {
+          console.error("Error updating person:", error);
+          if (error.response && error.response.status === 404) {
+            alert("Person not found");
+          }
+        });
+    } else {      // Handle Add
+      console.log("Adding a new person");
+      const existingPerson = persons.find(person => person.name === newName);
+      
+      if (existingPerson) {
+        if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+          const updatedPerson = {
+            ...existingPerson,
+            phone: newPhoneNo
+          };
+          
+          phoneService.update(existingPerson.id, updatedPerson)
+            .then(response => {
+              setPersons(persons.map(person => 
+                person.id === existingPerson.id ? response.data : person
+              ));
+              setNewName("");
+              setNewPhoneNo("");
+            })
+            .catch(error => {
+              console.error("Error updating person:", error);
+              alert("Failed to update the person's information");
+            });
+        }
+      } else {
+        const myNewPerson = {
+          name: newName,
+          phone: newPhoneNo
+        };
+        
+        phoneService.create(myNewPerson)
+          .then(response => {
+            console.log("Person added successfully:", response.data);
+            setPersons([...persons, response.data]);
+            setNewName("");
+            setNewPhoneNo("");
+          })
+          .catch(error => {
+            console.error("Error adding person:", error);
+            alert("Failed to add the person");
+          });
+      }
       setNewName("");
       setNewPhoneNo("");
-      return;
     }
-    let myNewPerson = {
-      name: newName,
-      phone: newPhoneNo
-    }
-    let postData = phoneService.create(myNewPerson);
-    postData.then(response => {
-      console.log("Person added successfully:", response.data);
-      setPersons([...persons, response.data]); // Update state after getting response with ID
-    }).catch(error => {
-      console.error("Error adding person:", error);
-    });
-    setNewName("");
-    setNewPhoneNo("");
   }
-
+  
   const handleSearchChange = (e) => {
     setSearchName(e.target.value);
   }
@@ -52,20 +104,55 @@ const App = () => {
     person.name.toLowerCase().includes(searchName.toLowerCase())  
     );
 
+  const handleUpdate = (id) => {
+    console.log("Setting up update for person with id:", id);
+    const personToUpdate = persons.find(person => person.id === id);
+    if (!personToUpdate) {
+      console.error("Person not found for update:", id);
+      return;
+    }
+    // Set form to update mode with current values
+    setNewName(personToUpdate.name);
+    setNewPhoneNo(personToUpdate.phone);
+    setIsUpdating(true);
+    setUpdateId(id);
+  }
+  
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this person?")) {
+      let myDelete = phoneService.deletePersons(id);
+      myDelete.then(response =>
+        setPersons(persons.filter(person =>
+          person.id !== id
+        ))
+      ).catch(error => {
+        console.error("Error deleting person:", error);
+        if (error.response && error.response.status === 404) {
+          alert("Person not found");
+        }
+      });
+    }
+  }
   return (
     <div>
       <h2>Phonebook</h2>
     
-      <Filter searchName={searchName} handleSearchChange={handleSearchChange} />
+      <Filter searchName={searchName} handleSearchChange={handleSearchChange} />      <h2>{isUpdating ? 'Update Contact' : 'Add a New'}</h2>      <PersonForm 
+        handleSubmit={handleSubmit} 
+        newName={newName} 
+        setNewName={setNewName} 
+        newPhoneNo={newPhoneNo} 
+        setNewPhoneNo={setNewPhoneNo}
+        isUpdating={isUpdating}
+        setIsUpdating={setIsUpdating}
+      />
 
-      <h2>Add a New</h2>
-      <PersonForm 
-      handleSubmit={handleSubmit} newName={newName} 
-      setNewName={setNewName} newPhoneNo={newPhoneNo} 
-      setNewPhoneNo={setNewPhoneNo} />
-
-      <h2>Numbers</h2>
-      <Persons filteredPersons={filteredPersons} />
+      <h2>Numbers</h2>      
+      <Persons 
+        filteredPersons={filteredPersons} 
+        handleUpdate={handleUpdate}
+        handleDelete={handleDelete}
+      />
     </div>
   )
 }

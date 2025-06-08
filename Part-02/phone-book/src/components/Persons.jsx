@@ -1,6 +1,5 @@
-import React from 'react'
 
-function Persons({filteredPersons}) {
+function Persons({filteredPersons , handleUpdate, handleDelete}) {
   const personStyle = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -48,10 +47,10 @@ function Persons({filteredPersons}) {
           <span style={{ display: 'flex', gap: '20px' }}>
             <span style={{ minWidth: '150px' }}>{person.name}</span>
             <span>{person.phone}</span>
-          </span>          
+          </span>            
           <div style={buttonContainerStyle}>
-            <button style={editButtonStyle} title="Edit">✎</button>
-            <button style={deleteButtonStyle} title="Delete">×</button>
+            <button style={editButtonStyle} onClick={() => handleUpdate(person.id)} title="Edit">✎</button>
+            <button style={deleteButtonStyle} onClick={() => handleDelete(person.id)} title="Delete">×</button>
           </div>
         </div>
       ))}
