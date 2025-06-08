@@ -1,7 +1,7 @@
-const Notes = ({note}) => {
+const Notes = ({note,updateNote}) => {
   return (
       <li >
-        {note.content} <strong>{note.important ? "Important" : "Not Important"}</strong>
+        {note.content} <button onClick={updateNote}>🙅‍♂️{note.correct ? "Yes" : "No"}🙅‍♀️</button>
       </li>
   )
 };
