@@ -35,6 +35,16 @@ app.get("/info", (req, res) => {
     <p>${new Date()}</p>`);
 });
 
+app.get("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  const person = persons.find((person) => person.id === id);
+  if (person) {
+    res.json(person);
+  } else {
+    res.status(404).send(`<h2>Person with id ${id} not found</h2>`);
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Phone book server is running on http://localhost:${PORT}`);
