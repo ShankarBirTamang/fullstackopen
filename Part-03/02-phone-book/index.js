@@ -60,9 +60,11 @@ app.delete("/api/persons/:id", (req, res) => {
   });
 });
 const generateId = () => {
-  const maxId =
-    persons.length > 0 ? Math.max(...persons.map((n) => Number(n.id))) : 0;
-  return String(maxId + 1);
+  let id;
+  do {
+    id = String(Math.floor(Math.random() * 1000000));
+  } while (persons.find((person) => person.id === id));
+  return id;
 };
 
 app.post("/api/persons", (req, res) => {
