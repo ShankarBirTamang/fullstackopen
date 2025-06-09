@@ -3,6 +3,16 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+//morgan middleware
+const morgan = require("morgan");
+
+morgan.token("body", (req) => {
+  return req.method === "POST" ? JSON.stringify(req.body) : "";
+});
+
+app.use(morgan(":method :url :status :response-time ms :body"));
+//end of morgan middleware
+
 let persons = [
   {
     id: "1",
