@@ -1,6 +1,7 @@
 console.log("Starting Notes Server...");
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 let notes = [
   {
@@ -19,6 +20,14 @@ let notes = [
     important: true,
   },
 ];
+const requestLogger = (request, response, next) => {
+  console.log("Method:", request.method);
+  console.log("Path:  ", request.path);
+  console.log("Body:  ", request.body);
+  console.log("---");
+  next();
+};
+app.use(requestLogger);
 
 // const http = require("http");
 
@@ -57,7 +66,7 @@ const generateId = () => {
   return String(maxId + 1);
 };
 
-app.post("/api/notes", express.json(), (req, res) => {
+app.post("/api/notes", (req, res) => {
   const newNote = req.body;
   console.log("Received new note:", newNote);
 
