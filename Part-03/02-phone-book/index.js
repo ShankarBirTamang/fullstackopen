@@ -45,6 +45,47 @@ app.get("/api/persons/:id", (req, res) => {
   }
 });
 
+app.delete("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  const personToDelete = persons.find((person) => person.id === id);
+
+  if (!personToDelete) {
+    return res.status(404).json({ error: `Person with id ${id} not found` });
+  }
+
+  persons = persons.filter((person) => person.id !== id);
+  res.status(200).json({
+    message: "Person deleted successfully",
+    deleted: personToDelete,
+  });
+});
+const generateId = () => {
+  const maxId =
+    persons.length > 0 ? Math.max(...persons.map((n) => Number(n.id))) : 0;
+  return String(maxId + 1);
+};
+
+app.post("/api/persons", (req, res) => {
+  const newPerson = req.body;
+  if (!newPerson.name || !newPerson.number) {
+    return res.status(400).json({ error: "Name and number are required" });
+  }
+  const existingPerson = persons.find(
+    (person) => person.name === newPerson.name
+  );
+  if (existingPerson) {
+    return res.status(400).json({ error: "Name must be unique" });
+  }
+  const person = {
+    id: generateId(),
+    name: newPerson.name,
+    number: newPerson.number,
+  };
+
+  persons.push(person);
+  res.status(201).json(person);
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Phone book server is running on http://localhost:${PORT}`);
