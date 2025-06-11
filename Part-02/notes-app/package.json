@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "server": "npx json-server --port 3001 --watch db.json"
+    "server": "npx json-server --port 3001 --watch db.json",
+    "build:ui": "cd src && rm -rf dist && rm -rf ../../../Part-03/01-notes-server/dist && npm run build && cp -r dist ../../../Part-03/01-notes-server"
   },
   "keywords": [],
   "author": "",
