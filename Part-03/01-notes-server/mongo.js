@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
-if (process.argv.length < 3) {
-  console.log("give password as argument");
-  process.exit(1);
-}
-
-const password = process.argv[2];
+const password = "Sankar123";
 
 const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -21,8 +16,8 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model("Note", noteSchema);
 
 const note = new Note({
-  content: "HTML is easy",
-  correct: true,
+  content: "HTML is difficult",
+  correct: false,
 });
 
 note.save().then((result) => {

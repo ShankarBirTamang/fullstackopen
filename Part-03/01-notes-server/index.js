@@ -1,12 +1,3 @@
-console.log("Starting Notes Server...");
-const express = require("express");
-const app = express();
-const cors = require("cors");
-
-app.use(express.json());
-app.use(cors());
-app.use(express.static("dist"));
-
 let notes = [
   {
     id: "1",
@@ -24,6 +15,41 @@ let notes = [
     correct: true,
   },
 ];
+
+console.log("Starting Notes Server...");
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+app.use(express.static("dist"));
+
+// MongoDB connection setup
+const password = "Sankar123";
+const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`;
+
+mongoose.set("strictQuery", false);
+mongoose.connect(url);
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  correct: Boolean,
+});
+
+const Note = mongoose.model("Note", noteSchema);
+
+noteSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
+
+// End of MongoDB connection setup
+
 const requestLogger = (request, response, next) => {
   console.log("Method:", request.method);
   console.log("Path:  ", request.path);
@@ -33,19 +59,10 @@ const requestLogger = (request, response, next) => {
 };
 app.use(requestLogger);
 
-// const http = require("http");
-
-// const app = http.createServer((req, res) => {
-//   res.writeHead(200, { "Content-Type": "application/json" });
-//   res.end(JSON.stringify(notes));
-// });
-
-// app.get("/", (req, res) => {
-//   res.send("<h1>Welcome to the Notes Server</h1>");
-// });
-
 app.get("/api/notes", (req, res) => {
-  res.json(notes);
+  Note.find({}).then((result) => {
+    res.json(result);
+  });
 });
 
 app.get("/api/notes/:id", (req, res) => {
