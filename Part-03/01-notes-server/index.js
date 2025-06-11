@@ -1,23 +1,27 @@
 console.log("Starting Notes Server...");
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
 app.use(express.json());
+app.use(cors());
+app.use(express.static("dist"));
 
 let notes = [
   {
     id: "1",
     content: "HTML is easy",
-    important: true,
+    correct: true,
   },
   {
     id: "2",
     content: "Browser can execute only JavaScript",
-    important: false,
+    correct: false,
   },
   {
     id: "3",
-    content: "GET and POST are the very important methods of HTTP protocol",
-    important: true,
+    content: "GET and POST are the very correct methods of HTTP protocol",
+    correct: true,
   },
 ];
 const requestLogger = (request, response, next) => {
@@ -36,9 +40,9 @@ app.use(requestLogger);
 //   res.end(JSON.stringify(notes));
 // });
 
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome to the Notes Server</h1>");
-});
+// app.get("/", (req, res) => {
+//   res.send("<h1>Welcome to the Notes Server</h1>");
+// });
 
 app.get("/api/notes", (req, res) => {
   res.json(notes);
@@ -49,6 +53,28 @@ app.get("/api/notes/:id", (req, res) => {
   const note = notes.find((n) => n.id === id);
   if (note) {
     res.json(note);
+  } else {
+    res.status(404).json({ error: "Note not found" });
+  }
+});
+
+app.put("/api/notes/:id", (req, res) => {
+  const id = req.params.id;
+  const noteIndex = notes.findIndex((n) => n.id === id);
+
+  if (noteIndex !== -1) {
+    // Update the note with data from request body
+    const updatedNote = {
+      id: id,
+      content: req.body.content,
+      correct:
+        req.body.correct !== undefined
+          ? req.body.correct
+          : notes[noteIndex].correct,
+    };
+
+    notes[noteIndex] = updatedNote;
+    res.json(updatedNote);
   } else {
     res.status(404).json({ error: "Note not found" });
   }
@@ -77,7 +103,7 @@ app.post("/api/notes", (req, res) => {
   const note = {
     id: generateId(),
     content: newNote.content,
-    important: newNote.important || false,
+    important: newNote.correct || false,
   };
   notes.push(note);
   res.status(201).json(note);
