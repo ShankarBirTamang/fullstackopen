@@ -58,6 +58,28 @@ app.get("/api/persons/:id", (req, res) => {
   }
 });
 
+app.put("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  const phoneIndex = persons.findIndex((n) => n.id === id);
+
+  if (phoneIndex !== -1) {
+    // Update the note with data from request body
+    const updatedPerson = {
+      id: id,
+      name: req.body.name,
+      phone:
+        req.body.phone !== undefined
+          ? req.body.phone
+          : persons[phoneIndex].phone,
+    };
+
+    persons[phoneIndex] = updatedPerson;
+    res.json(updatedPerson);
+  } else {
+    res.status(404).json({ error: "Note not found" });
+  }
+});
+
 app.delete("/api/persons/:id", (req, res) => {
   const id = req.params.id;
   const personToDelete = persons.find((person) => person.id === id);
