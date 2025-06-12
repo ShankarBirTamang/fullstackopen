@@ -1,21 +1,3 @@
-let notes = [
-  {
-    id: "1",
-    content: "HTML is easy",
-    correct: true,
-  },
-  {
-    id: "2",
-    content: "Browser can execute only JavaScript",
-    correct: false,
-  },
-  {
-    id: "3",
-    content: "GET and POST are the very correct methods of HTTP protocol",
-    correct: true,
-  },
-];
-
 console.log("Starting Notes Server...");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -28,7 +10,8 @@ app.use(express.static("dist"));
 
 // MongoDB connection setup
 const password = "Sankar123";
-const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`;
+const dbName = "noteApp";
+const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
@@ -59,72 +42,99 @@ const requestLogger = (request, response, next) => {
 };
 app.use(requestLogger);
 
-app.get("/api/notes", (req, res) => {
-  Note.find({}).then((result) => {
-    res.json(result);
+//GET request to fetch all notes from MongoDB
+app.get("/api/notes", (req, res, next) => {
+  Note.find({})
+    .then((notes) => res.json(notes))
+    .catch((error) => next(error));
+});
+
+// GET single note
+app.get("/api/notes/:id", (req, res, next) => {
+  const id = req.params.id;
+  Note.findById(id)
+    .then((note) => {
+      if (note) {
+        res.json(note);
+      } else {
+        res.status(404).json({ error: "Note not found" });
+      }
+    })
+    .catch((error) => next(error));
+});
+
+//PUT request to update a note
+app.put("/api/notes/:id", (req, res, next) => {
+  const id = req.params.id;
+  const { content, correct } = req.body;
+
+  Note.findByIdAndUpdate(
+    id,
+    { content, correct },
+    { new: true, runValidators: true, context: "query" }
+  )
+    .then((updatedNote) => {
+      if (updatedNote) {
+        res.json(updatedNote);
+      } else {
+        res.status(404).json({ error: "Note not found" });
+      }
+    })
+    .catch((error) => next(error));
+});
+
+//DELETE note
+app.delete("/api/notes/:id", (req, res, next) => {
+  const id = req.params.id;
+  Note.findByIdAndDelete(id)
+    .then((result) => {
+      if (result) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ error: "Note not found" });
+      }
+    })
+    .catch((error) => next(error));
+});
+
+//POST request to add a new note
+app.post("/api/notes", (req, res, next) => {
+  const newNote = req.body;
+
+  const note = new Note({
+    content: newNote.content,
+    correct: newNote.correct || false,
   });
+
+  note
+    .save()
+    .then((savedNote) => res.json(savedNote))
+    .catch((error) => next(error));
 });
 
-app.get("/api/notes/:id", (req, res) => {
-  const id = req.params.id;
-  const note = notes.find((n) => n.id === id);
-  if (note) {
-    res.json(note);
-  } else {
-    res.status(404).json({ error: "Note not found" });
+// Middleware for handling errors
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    return response.status(400).json({
+      error: "malformatted id",
+    });
+  } else if (error.name === "ValidationError") {
+    return response.status(400).json({
+      error: error.message,
+    });
+  } else if (error.name === "MongoServerError" && error.code === 11000) {
+    return response.status(409).json({
+      error: "duplicate key error",
+    });
   }
-});
 
-app.put("/api/notes/:id", (req, res) => {
-  const id = req.params.id;
-  const noteIndex = notes.findIndex((n) => n.id === id);
-
-  if (noteIndex !== -1) {
-    // Update the note with data from request body
-    const updatedNote = {
-      id: id,
-      content: req.body.content,
-      correct:
-        req.body.correct !== undefined
-          ? req.body.correct
-          : notes[noteIndex].correct,
-    };
-
-    notes[noteIndex] = updatedNote;
-    res.json(updatedNote);
-  } else {
-    res.status(404).json({ error: "Note not found" });
-  }
-});
-
-app.delete("/api/notes/:id", (req, res) => {
-  const id = req.params.id;
-  notes = notes.filter((n) => n.id !== id);
-  res.status(204).end(`Note with id ${id} deleted`);
-});
-
-const generateId = () => {
-  const maxId =
-    notes.length > 0 ? Math.max(...notes.map((n) => Number(n.id))) : 0;
-  return String(maxId + 1);
+  next(error);
 };
 
-app.post("/api/notes", (req, res) => {
-  const newNote = req.body;
-  console.log("Received new note:", newNote);
-
-  if (!newNote.content) {
-    return res.status(400).json({ error: "Content is missing" });
-  }
-
-  const note = {
-    id: generateId(),
-    content: newNote.content,
-    important: newNote.correct || false,
-  };
-  notes.push(note);
-  res.status(201).json(note);
-});
+// this has to be the last loaded middleware,
+app.use(errorHandler);
 
 const PORT = 3001;
 app.listen(PORT, () => {

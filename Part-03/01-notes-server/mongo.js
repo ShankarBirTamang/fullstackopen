@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const password = "Sankar123";
-
-const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`;
+const dbName = "noteApp";
+const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.set("strictQuery", false);
 
@@ -16,8 +16,8 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model("Note", noteSchema);
 
 const note = new Note({
-  content: "HTML is difficult",
-  correct: false,
+  content: "React is a JavaScript library for building user interfaces",
+  correct: true,
 });
 
 note.save().then((result) => {
