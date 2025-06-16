@@ -16,8 +16,13 @@ const url = `mongodb+srv://SankarBir:${password}@cluster0.e2vuyni.mongodb.net/${
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
 
+// schema for Note
 const noteSchema = new mongoose.Schema({
-  content: String,
+  content: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
   correct: Boolean,
 });
 
@@ -100,7 +105,6 @@ app.delete("/api/notes/:id", (req, res, next) => {
 //POST request to add a new note
 app.post("/api/notes", (req, res, next) => {
   const newNote = req.body;
-
   const note = new Note({
     content: newNote.content,
     correct: newNote.correct || false,
