@@ -1,6 +1,7 @@
+const { info } = require("./logger");
 // Middleware for handling errors
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
+  info(error.message);
 
   if (error.name === "CastError") {
     return response.status(400).json({
@@ -20,10 +21,10 @@ const errorHandler = (error, request, response, next) => {
 };
 
 const requestLogger = (request, response, next) => {
-  console.log("Method:", request.method);
-  console.log("Path:  ", request.path);
-  console.log("Body:  ", request.body);
-  console.log("---");
+  info("Method:", request.method);
+  info("Path:  ", request.path);
+  info("Body:  ", request.body);
+  info("---");
   next();
 };
 
