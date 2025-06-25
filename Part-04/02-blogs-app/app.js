@@ -16,6 +16,7 @@ app.use(requestLogger);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
+console.log("NODE_ENV is ", process.env.NODE_ENV);
 app.use("/api/blogs", routes);
 
 // this has to be the last loaded middleware,
