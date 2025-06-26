@@ -1,3 +1,5 @@
+/* eslint-disable @stylistic/js/linebreak-style */
+/* eslint-disable @stylistic/js/quotes */
 const app = require("express");
 const routes = app.Router();
 const Blog = require("../models/blogs");
@@ -41,6 +43,7 @@ routes.put("/:id", async (req, res, next) => {
     if (updatedBlog) {
       res.json(updatedBlog);
     } else {
+      // eslint-disable-next-line @stylistic/js/quotes
       res.status(404).json({ error: "Blog not found" });
     }
   } catch (error) {
