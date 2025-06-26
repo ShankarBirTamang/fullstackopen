@@ -1,3 +1,5 @@
+/* eslint-disable @stylistic/js/linebreak-style */
+/* eslint-disable @stylistic/js/quotes */
 const info = (...params) => {
   if (process.env.NODE_ENV !== "test") {
     console.log(...params);

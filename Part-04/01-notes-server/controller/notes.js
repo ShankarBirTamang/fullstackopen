@@ -1,11 +1,19 @@
 const app = require("express");
 const routes = app.Router();
 const Note = require("../models/notes");
+const User = require("../models/user");
 
 //GET request to fetch all notes from MongoDB
 routes.get("/", async (req, res, next) => {
-  const notes = await Note.find({});
-  res.json(notes);
+  try {
+    const notes = await Note.find({}).populate("user", {
+      username: 1,
+      name: 1,
+    });
+    res.json(notes);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // GET single note
@@ -53,12 +61,19 @@ routes.delete("/:id", async (req, res, next) => {
 //POST request to add a new note
 routes.post("/", async (req, res, next) => {
   const newNote = req.body;
+  const user = await User.findById(newNote.user);
+  if (!user) {
+    return res.status(400).json({ error: "User not found" });
+  }
   const note = new Note({
     content: newNote.content,
     correct: newNote.correct || false,
+    user: user.id,
   });
   try {
     const savedNote = await note.save();
+    user.notes = user.notes.concat(savedNote.id);
+    await user.save();
     res.status(201).json(savedNote);
   } catch (error) {
     next(error);
