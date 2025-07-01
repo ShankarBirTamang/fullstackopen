@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { url } = require("./utils/config");
 const { errorHandler, requestLogger } = require("./utils/middleware");
 const routes = require("./controller/blogs");
+const userRoutes = require("./controller/users");
 const app = express();
 const cors = require("cors");
 
@@ -18,6 +19,7 @@ mongoose.set("strictQuery", false);
 mongoose.connect(url);
 console.log("NODE_ENV is ", process.env.NODE_ENV);
 app.use("/api/blogs", routes);
+app.use("/api/users", userRoutes);
 
 // this has to be the last loaded middleware,
 app.use(errorHandler);
