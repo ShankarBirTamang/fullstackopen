@@ -1,3 +1,4 @@
+/* eslint-disable @stylistic/js/quotes */
 const mongoose = require("mongoose");
 
 // schema for Blog
@@ -8,6 +9,10 @@ const blogSchema = new mongoose.Schema({
   likes: {
     type: Number,
     default: 0,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 

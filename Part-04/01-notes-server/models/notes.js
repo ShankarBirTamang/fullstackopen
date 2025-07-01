@@ -8,6 +8,10 @@ const noteSchema = new mongoose.Schema({
     minlength: 5,
   },
   correct: Boolean,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 noteSchema.set("toJSON", {

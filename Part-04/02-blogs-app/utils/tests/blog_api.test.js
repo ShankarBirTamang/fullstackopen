@@ -1,4 +1,6 @@
-const { test, describe, after } = require("node:test");
+/* eslint-disable @stylistic/js/linebreak-style */
+/* eslint-disable @stylistic/js/quotes */
+const { test, describe } = require("node:test");
 const assert = require("node:assert/strict");
 const supertest = require("supertest");
 const mongoose = require("mongoose");
