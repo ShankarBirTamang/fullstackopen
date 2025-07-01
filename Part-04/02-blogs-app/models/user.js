@@ -1,5 +1,3 @@
-/* eslint-disable @stylistic/js/linebreak-style */
-/* eslint-disable @stylistic/js/quotes */
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 

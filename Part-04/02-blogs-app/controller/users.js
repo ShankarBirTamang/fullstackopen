@@ -1,5 +1,3 @@
-/* eslint-disable @stylistic/js/linebreak-style */
-/* eslint-disable @stylistic/js/quotes */
 const app = require("express");
 const routes = app.Router();
 const User = require("../models/user");
