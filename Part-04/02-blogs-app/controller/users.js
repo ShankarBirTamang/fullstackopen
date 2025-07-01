@@ -1,6 +1,7 @@
 const app = require("express");
 const routes = app.Router();
 const User = require("../models/user");
+const Blog = require("../models/blogs");
 const bcrypt = require("bcrypt");
 
 //GET request to fetch all users from MongoDB
@@ -21,7 +22,12 @@ routes.get("/", async (req, res, next) => {
 // GET single user
 routes.get("/:id", async (req, res, next) => {
   const id = req.params.id;
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("blogs", {
+    title: true,
+    author: true,
+    url: true,
+    likes: true,
+  });
   if (user) {
     res.json(user);
   } else {
@@ -67,6 +73,29 @@ routes.post("/", async (req, res, next) => {
   try {
     const savedUser = await user.save();
     res.status(201).json(savedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//DELETE user
+routes.delete("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    // Check if user exists
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Delete all blogs associated with this user
+    await Blog.deleteMany({ user: id });
+
+    // Delete the user
+    await User.findByIdAndDelete(id);
+
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
