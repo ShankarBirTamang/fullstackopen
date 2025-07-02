@@ -1,0 +1,46 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "date": "2023-01-01",
+      "correct": true
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "date": "2023-01-02",
+      "correct": true
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most correct methods of HTTP protocol",
+      "date": "2023-01-03",
+      "correct": true
+    },
+    {
+      "id": "4",
+      "content": "CSS is used for styling web pages",
+      "date": "2023-01-04",
+      "correct": true
+    },
+    {
+      "id": "5",
+      "content": "React is a JavaScript library for building user interfaces",
+      "date": "2023-01-05",
+      "correct": false
+    },
+    {
+      "id": "6",
+      "content": "Node.js allows JavaScript to be run on the server",
+      "date": "2023-01-06",
+      "correct": true
+    },
+    {
+      "id": "7",
+      "content": "JSON is a lightweight data interchange format",
+      "date": "2023-01-07",
+      "correct": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+.noteItem {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  
+  .noteItem:hover {
+    transform: translateX(5px);
+  }
+  
+  .noteContent {
+    flex: 1;
+    margin-right: 15px;
+  }
+  
+  .statusButton {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    color: white;
+  }
+  
+  .statusButtonCorrect {
+    background-color: #4CAF50;
+  }
+  
+  .statusButtonIncorrect {
+    background-color: #ff5252;
+  }
+  
+  .statusButton:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
