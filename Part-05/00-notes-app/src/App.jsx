@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import Notes from "./components/Notes";
 import { useEffect, useState } from "react";
 import noteService from "./services/notes";
 import styles from './styles/App.module.css';
-import loginService from "./services/login";
+
+import LoginForm from "./components/LoginForm";
+import NotesForm from "./components/NotesForm";
 
 const App = () => {
   const [myNotes,setMyNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const [showAll, setShowAll] = useState(true);
 
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
@@ -33,25 +33,25 @@ const App = () => {
           date: new Date().toISOString().split('T')[0],
           correct: Math.random() > 0.5 
       }
-      let postData = noteService.create(myNote);
+      
+      let postData = noteService.create(myNote,user.token);
       postData.then(response => {
         console.log("Note added successfully:", response.data);
         setMyNotes([...myNotes, response.data]); // Update state after getting response with ID
       }).catch(error => {
-        console.error("Error adding note:", error);
+        console.error("Error adding note:", error.response.data.error);
+        alert(error.response.data.error);
       });
       setNewNote("");
+      
   }
 
   const handleChange = (e)=>{
     setNewNote(e.target.value);
   }
 
-  const notesToShow = myNotes.filter(note => showAll ? true : note.correct);
 
-  const handleShow = () => {
-    setShowAll(!showAll);
-  }
+
 
   const updateNote = (id) => {
       console.log("Updating note with id:", id);
@@ -73,81 +73,32 @@ const App = () => {
       }
     });
   }
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
-    const response = await loginService.login({ username, password })
-    console.log('login successful', response)
-     setUser(response)
-    setUsername('')
-    setPassword('')
+
+
+
+  const loginForm = () => {
+    return (
+      <LoginForm 
+        username={username} 
+        password={password} 
+        setUsername={setUsername} 
+        setPassword={setPassword} 
+        setUser={setUser}
+      />
+    )
   }
- const loginForm = () => {
-  return (
-    <div className={styles.loginForm}>
-    <form onSubmit={handleLogin}>
-      <div className={styles.formGroup}>
-        <label className={styles.label}>Username</label>
-        <input
-          className={styles.input}
-          type="text"
-          value={username}
-          name="Username"
-          placeholder="Enter your username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div className={styles.formGroup}>
-        <label className={styles.label}>Password</label>
-        <input
-          className={styles.input}
-          type="password"
-          value={password}
-          name="Password"
-          placeholder="Enter your password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button className={styles.button} type="submit">
-        Login
-      </button>
-    </form>
-  </div>
-  )
- }
+
 
  const noteForm = () => {
   return (
-    <div>
-       <button 
-        className={`${styles.button} ${styles.toggleButton}`}
-        onClick={handleShow}
-      >
-        {showAll ? "🎯 Show Correct Only" : "📋 Show All"}
-      </button>
-
-      <ul className={styles.notesList}>
-        {notesToShow.map(note => (
-          <Notes 
-            key={note.id} 
-            note={note} 
-            updateNote={() => updateNote(note.id)}
-          />
-        ))}
-      </ul>
-
-      <form className={styles.addNoteForm} onSubmit={handleSubmit}>
-        <input
-          className={`${styles.input} ${styles.addNoteInput}`}
-          value={newNote}
-          onChange={handleChange}
-          placeholder="Write a new note..."
-        />
-        <button className={styles.button}>Add Note</button>
-      </form>
-
-      <p className={styles.noteCount}>Total Notes: {myNotes.length}</p>
-    </div>
+    <NotesForm 
+      myNotes={myNotes} 
+      handleSubmit={handleSubmit} 
+      handleChange={handleChange} 
+      updateNote={updateNote} 
+      newNote={newNote} 
+      user={user}
+    />
   )
  }
 
