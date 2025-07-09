@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/App.module.css";
 import Notes from "./Notes";
+import Togglable from "./Togglable";
 
 const NotesForm = ({myNotes, handleSubmit, handleChange, updateNote, newNote, user}) => {
     const [showAll, setShowAll] = useState(true);
@@ -30,18 +31,22 @@ const NotesForm = ({myNotes, handleSubmit, handleChange, updateNote, newNote, us
             />
           ))}
         </ul>
+        <Togglable  buttonLabel="+">
+          <form className={styles.addNoteForm} onSubmit={handleSubmit}>
+            <input
+              className={`${styles.input} ${styles.addNoteInput}`}
+              value={newNote}
+              onChange={handleChange}
+              placeholder="Write a new note..."
+            />
+            <button className={styles.button}>Add Note</button>
+          </form>
+        </Togglable>
   
-        <form className={styles.addNoteForm} onSubmit={handleSubmit}>
-          <input
-            className={`${styles.input} ${styles.addNoteInput}`}
-            value={newNote}
-            onChange={handleChange}
-            placeholder="Write a new note..."
-          />
-          <button className={styles.button}>Add Note</button>
-        </form>
+        
   
         <p className={styles.noteCount}>Total Notes: {myNotes.length}</p>
+
       </div>
     )
    }
