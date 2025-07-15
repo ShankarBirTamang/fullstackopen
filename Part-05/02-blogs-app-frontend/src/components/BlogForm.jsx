@@ -8,7 +8,15 @@ const BlogForm = ({ createBlog }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createBlog({ title, author, url });
+
+    const blogObject = {
+      title: title,
+      author: author,
+      url: url || 'https://www.google.com',
+      likes: 0,
+    };
+
+    createBlog(blogObject);
     setTitle('');
     setAuthor('');
     setUrl('');
@@ -53,7 +61,7 @@ const BlogForm = ({ createBlog }) => {
             onChange={(e) => setUrl(e.target.value)}
             className={styles.input}
             placeholder="Enter blog URL..."
-            required
+           
           />
         </div>
         

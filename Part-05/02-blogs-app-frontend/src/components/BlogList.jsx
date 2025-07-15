@@ -23,7 +23,7 @@ const BlogList = ({ blogs }) => (
       <div className={styles.blogGrid}>
         {blogs.map((blog, index) => (
           <div 
-            key={blog.id} 
+            key={blog._id || blog.id} 
             className={`${styles.blogCard} ${index === blogs.length - 1 ? styles.new : ''}`}
           >
             <div className={styles.blogHeader}>

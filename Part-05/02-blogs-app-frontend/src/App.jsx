@@ -18,9 +18,13 @@ const App = () => {
   }, []);
 
   const addBlog = async (blogObject) => {
-    const newBlog = await blogService.create(blogObject);
-    setBlogs(blogs.concat(newBlog));
-    blogFormRef.current.toggleVisibility();
+    try {
+      const newBlog = await blogService.create(blogObject,user.token);
+      setBlogs(blogs.concat(newBlog));
+      blogFormRef.current.toggleVisibility();
+    } catch (error) {
+      console.error('Error adding blog:', error);
+    }
   };
 
   const handleLogout = () => {
