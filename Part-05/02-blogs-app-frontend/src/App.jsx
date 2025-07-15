@@ -60,11 +60,19 @@ const App = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <h1 className={styles.title}>
-            <span className={styles.icon}>📝</span>
-            BlogHub
-          </h1>
-          <p className={styles.subtitle}>Welcome, {user.name || user.username}!</p>
+          <div className={styles.headerLeft}>
+            <h1 className={styles.title}>
+              <span className={styles.icon}>📝</span>
+              BlogHub
+            </h1>
+            <p className={styles.subtitle}>Welcome, {user.name || user.username}!</p>
+          </div>
+          <div className={styles.headerRight}>
+            <button onClick={handleLogout} className={styles.logoutButton}>
+              <span className={styles.logoutIcon}>🚪</span>
+              Logout
+            </button>
+          </div>
         </div>
       </header>
       
@@ -79,12 +87,6 @@ const App = () => {
           <div className={styles.blogsSection}>
             <BlogList blogs={blogs} />
           </div>
-        </div>
-        
-        <div className={styles.logoutSection}>
-          <button onClick={handleLogout} className={styles.logoutButton}>
-            Logout
-          </button>
         </div>
       </main>
     </div>
