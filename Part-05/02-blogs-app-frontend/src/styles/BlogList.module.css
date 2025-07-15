@@ -6,9 +6,7 @@
 }
 
 .container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  width: 100%;
 }
 
 .header {
@@ -27,12 +25,19 @@
 }
 
 .title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: white;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  letter-spacing: -0.02em;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.titleIcon {
+  font-size: 1.5rem;
 }
 
 .icon {
@@ -91,10 +96,148 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #718096;
+  background: #f7fafc;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.emptyText {
+  font-size: 1.1rem;
+  color: #a0aec0;
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.blogCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+}
+
+.blogCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-color: #e2e8f0;
+}
+
+.blogHeader {
+  flex: 1;
+}
+
+.blogTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blogMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.author,
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: #f8fafc;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.authorIcon,
+.likesIcon {
+  font-size: 0.8rem;
+}
+
+.blogLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  background: #f0f4ff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e7ff;
+  margin-top: auto;
+}
+
+.blogLink:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.linkIcon {
+  font-size: 0.8rem;
+}
+
+/* Blog count indicator */
+.blogCount {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #f0f9ff;
+  border-radius: 8px;
+  color: #0369a1;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid #bae6fd;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   
   .content {
@@ -105,5 +248,65 @@
   .formSection,
   .blogsSection {
     padding: 1.5rem;
+  }
+
+  .blogGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .blogCard {
+    padding: 1.25rem;
+    min-height: 160px;
+  }
+  
+  .blogTitle {
+    font-size: 1.1rem;
+  }
+  
+  .blogMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .emptyState {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blogCard {
+    padding: 1rem;
+  }
+  
+  .blogTitle {
+    font-size: 1rem;
+  }
+  
+  .blogMeta {
+    font-size: 0.85rem;
+  }
+}
+
+/* Loading state */
+.blogCard.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Animation for new blogs */
+.blogCard.new {
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 } 

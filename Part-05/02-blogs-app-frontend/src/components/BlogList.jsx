@@ -7,6 +7,12 @@ const BlogList = ({ blogs }) => (
       Latest Blog Posts
     </h2>
     
+    {blogs.length > 0 && (
+      <div className={styles.blogCount}>
+        {blogs.length} {blogs.length === 1 ? 'blog post' : 'blog posts'} found
+      </div>
+    )}
+    
     {blogs.length === 0 ? (
       <div className={styles.emptyState}>
         <div className={styles.emptyIcon}>📝</div>
@@ -15,14 +21,17 @@ const BlogList = ({ blogs }) => (
       </div>
     ) : (
       <div className={styles.blogGrid}>
-        {blogs.map(blog => (
-          <div key={blog.id} className={styles.blogCard}>
+        {blogs.map((blog, index) => (
+          <div 
+            key={blog.id} 
+            className={`${styles.blogCard} ${index === blogs.length - 1 ? styles.new : ''}`}
+          >
             <div className={styles.blogHeader}>
               <h3 className={styles.blogTitle}>{blog.title}</h3>
               <div className={styles.blogMeta}>
                 <span className={styles.author}>
                   <span className={styles.authorIcon}>👤</span>
-                  {blog.author}
+                  {blog.author || 'Anonymous'}
                 </span>
                 <span className={styles.likes}>
                   <span className={styles.likesIcon}>❤️</span>
