@@ -41,3 +41,39 @@
     opacity: 0.9;
     transform: scale(1.05);
   }
+
+    /* New styles for Togglable buttons to match note item dimensions */
+    .togglableButton {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s;
+      width: 100%;
+      text-align: center;
+      color: #333;
+    }
+    
+    .togglableButton:hover {
+      transform: translateX(5px);
+      opacity: 0.9;
+      color:#deefdf
+    }
+    
+    .togglableButtonPrimary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .togglableButtonPrimary:hover {
+      color: rgb(123, 10, 10);
+    }
+    
+    .togglableButtonSecondary {
+      margin-top: 10px;
+      background-color: #ff5252;
+      color: white;
+    }

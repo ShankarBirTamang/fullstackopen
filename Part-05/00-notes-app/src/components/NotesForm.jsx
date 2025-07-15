@@ -2,9 +2,37 @@ import { useState } from "react";
 import styles from "../styles/App.module.css";
 import Notes from "./Notes";
 import Togglable from "./Togglable";
+import noteService from "../services/notes";
 
-const NotesForm = ({myNotes, handleSubmit, handleChange, updateNote, newNote, user}) => {
+const NotesForm = ({myNotes, setMyNotes, updateNote,  user}) => {
     const [showAll, setShowAll] = useState(true);
+    const [newNote, setNewNote] = useState('');
+
+  
+
+    const handleSubmit = (e)=>{
+      e.preventDefault();
+      let myNote = {
+          content: newNote,
+          date: new Date().toISOString().split('T')[0],
+          correct: Math.random() > 0.5 
+      }
+      
+      let postData = noteService.create(myNote,user.token);
+      postData.then(response => {
+        setMyNotes([...myNotes, response.data]); // Update state after getting response with ID
+      }).catch(error => {
+        alert(error.response.data.error);
+      });
+      setNewNote("");
+      
+  }
+
+  const handleChange = (e)=>{
+    setNewNote(e.target.value);
+  }
+
+
   
     const handleShow = () => {
       setShowAll(!showAll);

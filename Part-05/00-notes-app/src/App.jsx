@@ -8,7 +8,7 @@ import NotesForm from "./components/NotesForm";
 
 const App = () => {
   const [myNotes,setMyNotes] = useState([]);
-  const [newNote, setNewNote] = useState("");
+  
 
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
@@ -25,31 +25,7 @@ const App = () => {
       });
     }, []);
 
-  const handleSubmit = (e)=>{
-      e.preventDefault();
-      console.log("Adding a new note");      
-      let myNote = {
-          content: newNote,
-          date: new Date().toISOString().split('T')[0],
-          correct: Math.random() > 0.5 
-      }
-      
-      let postData = noteService.create(myNote,user.token);
-      postData.then(response => {
-        console.log("Note added successfully:", response.data);
-        setMyNotes([...myNotes, response.data]); // Update state after getting response with ID
-      }).catch(error => {
-        console.error("Error adding note:", error.response.data.error);
-        alert(error.response.data.error);
-      });
-      setNewNote("");
-      
-  }
-
-  const handleChange = (e)=>{
-    setNewNote(e.target.value);
-  }
-
+  
 
 
 
@@ -93,10 +69,7 @@ const App = () => {
   return (
     <NotesForm 
       myNotes={myNotes} 
-      handleSubmit={handleSubmit} 
-      handleChange={handleChange} 
       updateNote={updateNote} 
-      newNote={newNote} 
       user={user}
     />
   )

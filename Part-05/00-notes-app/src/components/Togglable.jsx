@@ -16,7 +16,7 @@ const Togglable = (props) => {
     <div className={styles.notesContent}>
       <div style={hideWhenVisible}>
         <button 
-          className={`${noteStyles.statusButton} ${noteStyles.statusButtonCorrect}`}
+          className={`${noteStyles.togglableButton} ${noteStyles.togglableButtonPrimary}`}
           onClick={toggleVisibility}
         >
           {props.buttonLabel}
@@ -25,7 +25,7 @@ const Togglable = (props) => {
       <div style={showWhenVisible}>
         {props.children}
         <button 
-          className={`${noteStyles.statusButton} ${noteStyles.statusButtonIncorrect}`}
+          className={`${noteStyles.togglableButton} ${noteStyles.togglableButtonSecondary}`}
           onClick={toggleVisibility}
         >
           Cancel
