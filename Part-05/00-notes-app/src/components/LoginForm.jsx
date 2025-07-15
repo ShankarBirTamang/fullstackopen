@@ -1,24 +1,30 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import styles from "../styles/App.module.css";
-import loginService from "../services/login";
+import styles from '../styles/App.module.css';
+import loginService from '../services/login';
 
-const LoginForm = ({username, password, setUsername, setPassword , setUser}) => {
+const LoginForm = ({
+  username,
+  password,
+  setUsername,
+  setPassword,
+  setUser,
+}) => {
   const handleLogin = async (event) => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
-    try{
-    const response = await loginService.login({ username, password });
-    console.log('login successful', response);
-     setUser(response);
-    setUsername('');
-    setPassword('');
-  }catch(error){
-    console.error('login failed', error);
-    alert('login failed');
-  }
-  }
-    return (
-      <div className={styles.loginForm}>
+    event.preventDefault();
+    console.log('logging in with', username, password);
+    try {
+      const response = await loginService.login({ username, password });
+      console.log('login successful', response);
+      setUser(response);
+      setUsername('');
+      setPassword('');
+    } catch (error) {
+      console.error('login failed', error);
+      alert('login failed');
+    }
+  };
+  return (
+    <div className={styles.loginForm}>
       <form onSubmit={handleLogin}>
         <div className={styles.formGroup}>
           <label className={styles.label}>Username</label>
@@ -47,7 +53,7 @@ const LoginForm = ({username, password, setUsername, setPassword , setUser}) => 
         </button>
       </form>
     </div>
-    )
-   }
+  );
+};
 
 export default LoginForm;

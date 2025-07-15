@@ -1,21 +1,27 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import noteStyles from '../styles/Notes.module.css';
 import styles from '../styles/App.module.css';
 
-const Togglable = (props) => {
-  const [visible, setVisible] = useState(false)
+const Togglable = forwardRef((props, ref) => {
+  const [visible, setVisible] = useState(false);
 
-  const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none' }
+  const hideWhenVisible = { display: visible ? 'none' : '' };
+  const showWhenVisible = { display: visible ? '' : 'none' };
 
   const toggleVisibility = () => {
-    setVisible(!visible)
-  }
+    setVisible(!visible);
+  };
+
+  useImperativeHandle(ref, () => {
+    return {
+      toggleVisibility,
+    };
+  });
 
   return (
     <div className={styles.notesContent}>
       <div style={hideWhenVisible}>
-        <button 
+        <button
           className={`${noteStyles.togglableButton} ${noteStyles.togglableButtonPrimary}`}
           onClick={toggleVisibility}
         >
@@ -24,7 +30,7 @@ const Togglable = (props) => {
       </div>
       <div style={showWhenVisible}>
         {props.children}
-        <button 
+        <button
           className={`${noteStyles.togglableButton} ${noteStyles.togglableButtonSecondary}`}
           onClick={toggleVisibility}
         >
@@ -32,7 +38,9 @@ const Togglable = (props) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+});
 
-export default Togglable
+Togglable.displayName = 'Togglable';
+
+export default Togglable;
