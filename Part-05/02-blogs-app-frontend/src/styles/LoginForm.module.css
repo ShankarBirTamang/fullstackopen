@@ -7,27 +7,39 @@
 }
 
 .loginForm {
-  background: white;
+  background: rgba(15, 23, 42, 0.9);
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .loginTitle {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #2d3748;
+  color: #f8fafc;
   margin-bottom: 0.5rem;
   text-align: center;
 }
 
 .loginSubtitle {
-  color: #718096;
+  color: #94a3b8;
   text-align: center;
   margin-bottom: 2rem;
   font-size: 0.95rem;
+}
+
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .form {
@@ -44,60 +56,59 @@
 
 .label {
   font-weight: 500;
-  color: #4a5568;
+  color: #cbd5e1;
   font-size: 0.9rem;
 }
 
 .input {
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #334155;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s ease;
+  background: rgba(30, 41, 59, 0.8);
+  color: #f1f5f9;
 }
 
 .input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #3b82f6;
+  background: rgba(30, 41, 59, 1);
+}
+
+.input::placeholder {
+  color: #64748b;
 }
 
 .loginButton {
   padding: 0.875rem 1.5rem;
-  background: #667eea;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   margin-top: 0.5rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .loginButton:hover {
-  background: #5a67d8;
-}
-
-.errorMessage {
-  background: #fed7d7;
-  color: #c53030;
-  padding: 0.75rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  text-align: center;
-  border: 1px solid #feb2b2;
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
 .switchForm {
   text-align: center;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #334155;
 }
 
 .switchForm p {
-  color: #718096;
+  color: #94a3b8;
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
 }
@@ -105,7 +116,7 @@
 .switchButton {
   background: none;
   border: none;
-  color: #667eea;
+  color: #3b82f6;
   font-weight: 600;
   cursor: pointer;
   font-size: 0.95rem;
@@ -114,7 +125,7 @@
 }
 
 .switchButton:hover {
-  color: #5a67d8;
+  color: #60a5fa;
 }
 
 @media (max-width: 768px) {
