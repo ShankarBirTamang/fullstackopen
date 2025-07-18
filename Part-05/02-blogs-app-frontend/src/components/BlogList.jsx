@@ -1,4 +1,5 @@
 import styles from '../styles/BlogList.module.css';
+import Blog from './Blog';
 
 const BlogList = ({ blogs }) => (
   <div className={styles.container}>
@@ -21,37 +22,12 @@ const BlogList = ({ blogs }) => (
       </div>
     ) : (
       <div className={styles.blogGrid}>
-        {blogs.map((blog, index) => (
-          <div 
-            key={blog._id || blog.id} 
-            className={`${styles.blogCard} ${index === blogs.length - 1 ? styles.new : ''}`}
-          >
-            <div className={styles.blogHeader}>
-              <h3 className={styles.blogTitle}>{blog.title}</h3>
-              <div className={styles.blogMeta}>
-                <span className={styles.author}>
-                  <span className={styles.authorIcon}>👤</span>
-                  {blog.author || 'Anonymous'}
-                </span>
-                <span className={styles.likes}>
-                  <span className={styles.likesIcon}>❤️</span>
-                  {blog.likes || 0}
-                </span>
-              </div>
-            </div>
-            
-            {blog.url && (
-              <a 
-                href={blog.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={styles.blogLink}
-              >
-                <span className={styles.linkIcon}>🔗</span>
-                Read Blog
-              </a>
-            )}
-          </div>
+         {blogs.map((blog, index) => (
+          <Blog 
+            key={blog.id} 
+            blog={blog} 
+            isLast={index === blogs.length - 1}
+          />
         ))}
       </div>
     )}

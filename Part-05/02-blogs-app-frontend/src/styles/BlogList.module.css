@@ -178,7 +178,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 180px;
+  min-height: 100px;
 }
 
 .blogCard:hover {
@@ -259,7 +259,28 @@
 .linkIcon {
   font-size: 0.8rem;
 }
+.blogTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
 
+
+.blogTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0; /* Remove the bottom margin since it's handled by the row */
+  flex: 1; /* Allow title to take available space */
+}
 /* Blog count indicator */
 .blogCount {
   text-align: center;
