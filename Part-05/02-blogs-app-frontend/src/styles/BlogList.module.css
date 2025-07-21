@@ -47,7 +47,7 @@
 }
 
 .titleIcon {
-  font-size: 1.5rem;
+  font-size: 4rem;
 }
 
 .icon {
@@ -164,7 +164,7 @@
 .blogGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: min-content;
+  grid-auto-flow: dense;
   gap: 1.5rem;
   margin-top: 1rem;
   align-items: start; 
@@ -182,8 +182,8 @@
   justify-content: flex-start;
   min-height: 100px;
   height : auto;
-  grid-column: span 1;
-  grid-row: span 1;
+  grid-column: auto;
+  grid-row: auto;
 }
 
 .blogCard:hover {
@@ -192,6 +192,12 @@
   border-color: rgba(59, 130, 246, 0.3);
   background: rgba(15, 23, 42, 1);
 }
+
+
+.blogCard.expanded {
+  grid-row: span 2;
+}
+
 
 .blogHeader {
   flex: 0 0 auto;

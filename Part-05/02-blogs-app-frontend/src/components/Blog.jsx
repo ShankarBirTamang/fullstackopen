@@ -14,7 +14,7 @@ const Blog = ({ blog, isLast, onLike }) => {
 
   return (
     <div 
-      className={`${styles.blogCard} ${isLast ? styles.new : ''}`}
+      className={`${styles.blogCard} ${isLast ? styles.new : ''} ${showDetails ? styles.expanded : ''}`}
     >
       <div className={styles.blogHeader}>
         <div className={styles.blogTitleRow}>
@@ -29,23 +29,7 @@ const Blog = ({ blog, isLast, onLike }) => {
      
       </div>
       
-      {/* {showDetails && (
-        <div className={styles.blogDetails}>
-          <div className={styles.blogUrl}>
-            <span className={styles.urlIcon}>��</span>
-            {blog.url}
-          </div>
-          <div className={styles.likeSection}>
-            <span className={styles.likes}>
-              <span className={styles.likesIcon}>❤️</span>
-              {blog.likes || 0}
-            </span>
-            <button className={styles.likeButton}>
-              like
-            </button>
-          </div>
-        </div>
-      )} */}
+  
 
       {showDetails && (
          <div className={styles.blogMeta}>
