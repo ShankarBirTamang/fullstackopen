@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import styles from '../styles/BlogList.module.css';
 
-const Blog = ({ blog, isLast }) => {
+const Blog = ({ blog, isLast, onLike }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
+  };
+
+  const handleLikeClick = () => {
+    onLike(blog);
   };
 
   return (
@@ -50,11 +54,18 @@ const Blog = ({ blog, isLast }) => {
            {blog.author || 'Anonymous'}
          </span>
          <span className={styles.likes}>
+          <button 
+            onClick={handleLikeClick}
+            className={styles.likeButton}
+          >
            <span className={styles.likesIcon}>❤️</span>
+          </button>
            {blog.likes || 0}
          </span>
        </div>
       )}
+
+
       
       {showDetails && blog.url && (
         <a 

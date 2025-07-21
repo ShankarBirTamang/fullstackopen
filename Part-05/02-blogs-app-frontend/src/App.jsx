@@ -27,6 +27,48 @@ const App = () => {
     }
   };
 
+
+const handleLike = async (blog) => {
+  try {
+    console.log('Liking blog:', blog); // Debug log
+    
+    const blogData = {
+      likes: (blog.likes || 0) + 1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url ,
+    };
+      // Only add user if it exists in the blog object
+      if (blog.user && blog.user.id) {
+        blogData.user = blog.user.id;
+      }
+      
+    
+    console.log('Sending blog data:', blogData); // Debug log
+    
+    const updatedBlog = await blogService.like(blog.id, blogData);
+    
+    console.log('Updated blog:', updatedBlog); // Debug log
+    
+    // Check if the response is valid
+    if (updatedBlog && updatedBlog.id) {
+      setBlogs(blogs.map(b => b.id === blog.id ? updatedBlog : b));
+    } else {
+      console.error('Invalid response from server:', updatedBlog);
+      // Fallback: update the local state manually
+      setBlogs(blogs.map(b => 
+        b.id === blog.id 
+          ? { ...b, likes: (b.likes || 0) + 1 }
+          : b
+      ));
+    }
+  } catch (error) {
+    console.error('Error liking blog:', error);
+    console.error('Error details:', error.response?.data || error.message);
+  }
+};
+
+
   const handleLogout = () => {
     setUser(null);
   };
@@ -89,7 +131,7 @@ const App = () => {
           </div>
           
           <div className={styles.blogsSection}>
-            <BlogList blogs={blogs} />
+            <BlogList blogs={blogs} onLike={handleLike} />
           </div>
         </div>
       </main>

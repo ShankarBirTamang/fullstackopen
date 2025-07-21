@@ -39,16 +39,24 @@ routes.get("/:id", async (req, res, next) => {
 //PUT request to update a blog
 routes.put("/:id", async (req, res, next) => {
   const id = req.params.id;
-  const { title, author, url, likes } = req.body;
+  const { title, author, url, likes, user } = req.body;
 
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(
-      id,
-      { title, author, url, likes },
-      { new: true, runValidators: true, context: "query" }
-    );
+    const updateData = { title, author, url, likes };
+    if (user) {
+      updateData.user = user;
+    }
+    const updatedBlog = await Blog.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+      context: "query",
+    });
     if (updatedBlog) {
-      res.json(updatedBlog.populate("user", { username: true, name: true }));
+      const populatedBlog = await updatedBlog.populate("user", {
+        username: true,
+        name: true,
+      });
+      res.json(populatedBlog);
     } else {
       res.status(404).json({ error: "Blog not found" });
     }

@@ -1,7 +1,7 @@
 import styles from '../styles/BlogList.module.css';
 import Blog from './Blog';
 
-const BlogList = ({ blogs }) => (
+const BlogList = ({ blogs, onLike }) => (
   <div className={styles.container}>
     <h2 className={styles.title}>
       <span className={styles.titleIcon}>📚</span>
@@ -24,9 +24,10 @@ const BlogList = ({ blogs }) => (
       <div className={styles.blogGrid}>
          {blogs.map((blog, index) => (
           <Blog 
-            key={blog.id} 
+            key={blog.id || blog._id || index} 
             blog={blog} 
             isLast={index === blogs.length - 1}
+            onLike={onLike}
           />
         ))}
       </div>

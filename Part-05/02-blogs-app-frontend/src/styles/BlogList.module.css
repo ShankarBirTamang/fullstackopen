@@ -163,9 +163,11 @@
 
 .blogGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: min-content;
   gap: 1.5rem;
   margin-top: 1rem;
+  align-items: start; 
 }
 
 .blogCard {
@@ -177,8 +179,11 @@
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   min-height: 100px;
+  height : auto;
+  grid-column: span 1;
+  grid-row: span 1;
 }
 
 .blogCard:hover {
@@ -189,14 +194,15 @@
 }
 
 .blogHeader {
-  flex: 1;
+  flex: 0 0 auto;
+  margin-bottom: 0.5rem;
 }
 
 .blogTitle {
   font-size: 1.25rem;
   font-weight: 700;
   color: #f8fafc;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -213,6 +219,7 @@
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: #94a3b8;
+  flex: 0 0 auto;
 }
 
 .author,
@@ -230,6 +237,13 @@
 .authorIcon,
 .likesIcon {
   font-size: 0.8rem;
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .blogLink {
@@ -292,6 +306,27 @@
   font-weight: 500;
   font-size: 0.95rem;
   border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.toggleButton {
+  background: #343536;
+  color: white;
+  border: 1px solid #343536;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggleButton:hover {
+  background: #85b6e7;
+  color: rgb(75, 68, 68);
+  cursor: pointer;
 }
 
 /* Responsive Design */
