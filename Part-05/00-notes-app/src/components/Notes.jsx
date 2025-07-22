@@ -2,7 +2,7 @@ import styles from '../styles/Notes.module.css';
 
 const Notes = ({ note, updateNote }) => {
   return (
-    <li className={styles.noteItem}>
+    <li className={`${styles.noteItem} noteItem`}>
       <span className={styles.noteContent}>{note.content}</span>
       <button
         className={`${styles.statusButton} ${
