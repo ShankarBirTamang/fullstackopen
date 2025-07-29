@@ -29,6 +29,7 @@ const LoginForm = ({
         <div className={styles.formGroup}>
           <label className={styles.label}>Username</label>
           <input
+            id='username'
             className={styles.input}
             type="text"
             value={username}
@@ -40,6 +41,7 @@ const LoginForm = ({
         <div className={styles.formGroup}>
           <label className={styles.label}>Password</label>
           <input
+            id='password'
             className={styles.input}
             type="password"
             value={password}
