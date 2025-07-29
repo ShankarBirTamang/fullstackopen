@@ -46,6 +46,7 @@ const NotesForm = ({ myNotes, setMyNotes, updateNote, user }) => {
     <div>
       <p className={styles.noteCount}>Welcome! {user.name}</p>
       <button
+        id="showCorrect"
         className={`${styles.button} ${styles.toggleButton}`}
         onClick={handleShow}
       >
@@ -61,9 +62,10 @@ const NotesForm = ({ myNotes, setMyNotes, updateNote, user }) => {
           />
         ))}
       </ul>
-      <Togglable buttonLabel="+" ref={noteFormRef}>
+      <Togglable id='toggle' buttonLabel="+" ref={noteFormRef}>
         <form className={styles.addNoteForm} onSubmit={handleSubmit}>
           <input
+            id='newNote'
             className={`${styles.input} ${styles.addNoteInput}`}
             value={newNote}
             onChange={handleChange}

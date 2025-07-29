@@ -23,6 +23,7 @@ const Togglable = forwardRef((props, ref) => {
     <div className={styles.notesContent}>
       <div style={hideWhenVisible}>
         <button
+
           className={`${noteStyles.togglableButton} ${noteStyles.togglableButtonPrimary}`}
           onClick={toggleVisibility}
         >
@@ -30,6 +31,7 @@ const Togglable = forwardRef((props, ref) => {
         </button>
       </div>
       <div style={showWhenVisible}>
+        
         {props.children}
         <button
           className={`${noteStyles.togglableButton} ${noteStyles.togglableButtonSecondary}`}
