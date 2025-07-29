@@ -1,4 +1,3 @@
-/* eslint-disable @stylistic/js/quotes */
 const mongoose = require("mongoose");
 
 // schema for Blog
