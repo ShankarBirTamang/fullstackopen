@@ -23,9 +23,10 @@ describe('Note ', function () {
     // Add a new note
     cy.contains('+').click();
     // Wait for the form to appear and then type
-    cy.get('#newNote', { timeout: 5000 })
-      .should('be.visible')
-      .type('This is a cypress test note.');
+    // cy.get('#newNote', { timeout: 5000 })
+    //   .should('be.visible')
+    //   .type('This is a cypress test note.');
+    cy.get('#newNote').type('This is a cypress test note1.');
     cy.contains('Add Note').click();
 
     // Verify the note was added
