@@ -42,6 +42,16 @@ const NotesForm = ({ myNotes, setMyNotes, updateNote, user }) => {
     ? myNotes
     : myNotes.filter((note) => note.correct);
 
+    const deleteNote = async(noteId)=>{
+      try {
+        console.log('deleting note...',noteId,user.token)
+        await noteService.delete(noteId,user.token);
+         setMyNotes(prevNotes => prevNotes.filter(note => note.id !== noteId));
+      } catch (error) {
+         console.error('Error deleting note:', error);
+      }
+    }
+
   return (
     <div>
       <p className={styles.noteCount}>Welcome! {user.name}</p>
@@ -59,6 +69,7 @@ const NotesForm = ({ myNotes, setMyNotes, updateNote, user }) => {
             key={note.id}
             note={note}
             updateNote={() => updateNote(note.id)}
+            deleteNote={()=>deleteNote(note.id)}
           />
         ))}
       </ul>

@@ -1,6 +1,11 @@
 import styles from '../styles/Notes.module.css';
 
-const Notes = ({ note, updateNote }) => {
+const Notes = ({ note, updateNote,deleteNote }) => {
+  const handleDelete =(id)=>{
+    if(window.confirm('Are you sure you want to delete this note?')){
+      deleteNote(id);
+    }
+  }
   return (
     <li className={`${styles.noteItem} noteItem`}>
       <span className={styles.noteContent}>{note.content}</span>
@@ -13,6 +18,13 @@ const Notes = ({ note, updateNote }) => {
         onClick={updateNote}
       >
         {note.correct ? '✅ Correct' : '❌ Incorrect'}
+      </button>
+
+      <button
+        className={`${styles.deleteButton} `}
+        onClick={handleDelete}
+      >
+        🗑️ Delete
       </button>
     </li>
   );

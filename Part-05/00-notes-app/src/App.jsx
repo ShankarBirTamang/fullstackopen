@@ -58,6 +58,8 @@ const App = () => {
       });
   };
 
+ 
+
   const loginForm = () => {
     return (
       <LoginForm
@@ -71,7 +73,7 @@ const App = () => {
   };
 
   const noteForm = () => {
-    return <NotesForm myNotes={myNotes} updateNote={updateNote} user={user} />;
+    return <NotesForm myNotes={myNotes} setMyNotes={setMyNotes} updateNote={updateNote} user={user} />;
   };
 
   return (

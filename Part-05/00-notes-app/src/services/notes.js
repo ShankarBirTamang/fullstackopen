@@ -18,4 +18,12 @@ const update = (id, note) => {
   return axios.put(`${baseUrl}/${id}`, note);
 };
 
-export default { getAll, create, update };
+const deleteNote = (id, token) => {
+  return axios.delete(`${baseUrl}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export default { getAll, create, update, delete: deleteNote };

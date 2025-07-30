@@ -28,6 +28,17 @@
     transition: all 0.3s;
     color: white;
   }
+  .deleteButton {
+    padding: 8px 15px;
+    margin-left:4px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    background-color: #d60d0d;
+    color: rgb(234, 231, 231);
+  }
   
   .statusButtonCorrect {
     background-color: #4CAF50;
@@ -38,6 +49,10 @@
   }
   
   .statusButton:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  .deleteButton:hover {
     opacity: 0.9;
     transform: scale(1.05);
   }
