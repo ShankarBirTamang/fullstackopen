@@ -26,7 +26,7 @@ describe('Note ', function () {
     // cy.get('#newNote', { timeout: 5000 })
     //   .should('be.visible')
     //   .type('This is a cypress test note.');
-    cy.get('#newNote').type('This is a cypress test note1.');
+    cy.get('#newNote').type('This is a cypress test note.');
     cy.contains('Add Note').click();
 
     // Verify the note was added
