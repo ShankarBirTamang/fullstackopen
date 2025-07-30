@@ -1,5 +1,13 @@
 describe('Note ', function () {
   beforeEach(function () {
+    cy.request('POST', 'http://localhost:3001/api/testing/reset');
+    const user = {
+      name: 'Hari Bahadur Bhandari',
+      username: 'hari',
+      password: 'bahadur',
+    };
+    cy.request('POST', 'http://localhost:3001/api/users/', user);
+
     cy.visit('http://localhost:5173');
   });
 
@@ -10,12 +18,12 @@ describe('Note ', function () {
 
   it('user can login and add a new note', function () {
     // Login process
-    cy.get('#username').type('sankar');
-    cy.get('#password').type('Sankar123');
+    cy.get('#username').type('hari');
+    cy.get('#password').type('bahadur');
     cy.contains('Login').click();
 
     // Verify successful login
-    cy.contains('React is a JavaScript library for building user interfaces');
+    cy.contains('Welcome!');
 
     // Filter notes to show correct only
     cy.contains('🎯 Show Correct Only').click();
@@ -31,5 +39,26 @@ describe('Note ', function () {
 
     // Verify the note was added
     cy.contains('This is a cypress test note.');
+  });
+
+  it('it can be made not important', function () {
+    // Login process
+    cy.get('#username').type('hari');
+    cy.get('#password').type('bahadur');
+    cy.contains('Login').click();
+
+    // Verify successful login
+    cy.contains('Welcome!');
+
+    // Add a new note
+    cy.contains('+').click();
+    cy.get('#newNote').type('another note cypress');
+    cy.contains('Add Note').click();
+
+    cy.contains('another note cypress');
+    cy.contains('✅ Correct').click();
+
+    cy.contains('another note cypress');
+    cy.contains('Incorrect');
   });
 });

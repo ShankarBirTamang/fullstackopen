@@ -15,7 +15,8 @@ const NotesForm = ({ myNotes, setMyNotes, updateNote, user }) => {
     let myNote = {
       content: newNote,
       date: new Date().toISOString().split('T')[0],
-      correct: Math.random() > 0.5,
+      // correct: Math.random() > 0.5,
+      correct:true
     };
 
     noteFormRef.current.toggleVisibility();

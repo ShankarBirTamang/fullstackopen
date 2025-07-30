@@ -18,6 +18,12 @@ app.use(requestLogger);
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
 console.log("NODE_ENV is ", process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === "test") {
+  const testingRouter = require("./controller/testing");
+  app.use("/api/testing", testingRouter);
+}
+
 app.use("/api/notes", routes);
 app.use("/api/users", userRoutes);
 app.use("/api/login", loginRoutes);

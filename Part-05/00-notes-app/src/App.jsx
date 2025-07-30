@@ -18,12 +18,12 @@ const App = () => {
     console.log('Fetching notes from server');
     myAxiosData
       .then((myData) => {
-        myData.push({
-          id: 0,
-          content: 'This is a fake note',
-          date: '2023-10-01',
-          correct: true,
-        }); // Adding a sample note
+        // myData.push({
+        //   id: 0,
+        //   content: 'This is a fake note',
+        //   date: '2023-10-01',
+        //   correct: true,
+        // }); // Adding a sample note
         setMyNotes(myData);
       })
       .catch((error) => {
