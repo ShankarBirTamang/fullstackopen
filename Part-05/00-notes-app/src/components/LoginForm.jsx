@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import styles from '../styles/App.module.css';
 import loginService from '../services/login';
+import {useState} from 'react';
 
 const LoginForm = ({
   username,
@@ -9,6 +10,8 @@ const LoginForm = ({
   setPassword,
   setUser,
 }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleLogin = async (event) => {
     event.preventDefault();
     console.log('logging in with', username, password);
@@ -18,8 +21,10 @@ const LoginForm = ({
       setUser(response);
       setUsername('');
       setPassword('');
+      setErrorMessage('');
     } catch (error) {
       console.error('login failed', error);
+      setErrorMessage('wrong credentials');
       alert('login failed');
     }
   };
@@ -53,6 +58,10 @@ const LoginForm = ({
         <button className={styles.button} type="submit">
           Login
         </button>
+        {errorMessage && (
+        <div className="error" style={{ color: 'red' }}>
+          {errorMessage}
+        </div>)}
       </form>
     </div>
   );

@@ -61,4 +61,12 @@ describe('Note ', function () {
     cy.contains('another note cypress');
     cy.contains('Incorrect');
   });
+
+  it.only('login fails with wrong password', function () {
+    cy.get('#username').type('wrongUser');
+    cy.get('#password').type('wrongPassword');
+    cy.contains('Login').click();
+
+    cy.contains('wrong credentials');
+  });
 });
