@@ -68,12 +68,9 @@ describe('Note ', function () {
     cy.contains('Login').click();
 
     // Check that error message appears with correct text
-    cy.get('.error').should('contain', 'wrong credentials');
-
-    // Check that error message has red color
-    cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
-
-    // Check that error message has solid border
-    cy.get('.error').should('have.css', 'border-style', 'solid');
+    cy.get('.error')
+      .should('contain', 'wrong credentials')
+      .and('have.css', 'color', 'rgb(255, 0, 0)')
+      .and('have.css', 'border-style', 'solid');
   });
 });
