@@ -62,11 +62,18 @@ describe('Note ', function () {
     cy.contains('Incorrect');
   });
 
-  it.only('login fails with wrong password', function () {
+  it('login fails with wrong password', function () {
     cy.get('#username').type('wrongUser');
     cy.get('#password').type('wrongPassword');
     cy.contains('Login').click();
 
-    cy.contains('wrong credentials');
+    // Check that error message appears with correct text
+    cy.get('.error').should('contain', 'wrong credentials');
+
+    // Check that error message has red color
+    cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
+
+    // Check that error message has solid border
+    cy.get('.error').should('have.css', 'border-style', 'solid');
   });
 });

@@ -59,7 +59,14 @@ const LoginForm = ({
           Login
         </button>
         {errorMessage && (
-        <div className="error" style={{ color: 'red' }}>
+        <div className="error" style={{ 
+            color: 'red', 
+            borderStyle: 'solid',
+            borderColor: 'red',
+            borderWidth: '1px',
+            padding: '10px',
+            marginTop: '10px'
+          }}>
           {errorMessage}
         </div>)}
       </form>
