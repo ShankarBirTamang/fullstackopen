@@ -58,7 +58,7 @@ describe("Note ", function () {
       cy.contains("No blogs yet").should("be.visible");
     });
 
-    it.only("A blog can be created", function () {
+    it("A blog can be created", function () {
       cy.contains("Create New Blog").click();
       cy.get("#title").type("New Title");
       cy.get("#author").type("New Author");
@@ -77,6 +77,30 @@ describe("Note ", function () {
       cy.contains("New Author").should("be.visible");
       cy.contains("Read Blog").should("be.visible");
       cy.contains("hide").should("be.visible");
+    });
+
+    it.only("A blog can be liked", function () {
+      // First create a blog
+      cy.contains("Create New Blog").click();
+      cy.get("#title").type("Likeable Blog");
+      cy.get("#author").type("Test Author");
+      cy.get("#url").type("www.testblog.com");
+      cy.get("#createBlog").click();
+
+      // Wait for the blog to appear
+      cy.contains("Likeable Blog").should("be.visible");
+
+      // Click "view" to expand the blog details
+      cy.contains("view").click();
+
+      // Check initial likes count (should be 0)
+      cy.contains("0").should("be.visible");
+
+      // Click the like button (heart icon)
+      cy.get('[class*="likeButton"]').click();
+
+      // Wait for the likes count to update to 1
+      cy.contains("1").should("be.visible");
     });
   });
 });
