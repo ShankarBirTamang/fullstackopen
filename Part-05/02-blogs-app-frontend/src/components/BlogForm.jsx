@@ -56,16 +56,15 @@ const BlogForm = ({ createBlog }) => {
           <label htmlFor="url" className={styles.label}>URL</label>
           <input
             id="url"
-            type="url"
+            type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             className={styles.input}
             placeholder="Enter blog URL..."
-           
           />
         </div>
         
-        <button type="submit" className={styles.submitButton}>
+        <button type="submit" id="createBlog" className={styles.submitButton}>
           Create Blog
         </button>
       </form>

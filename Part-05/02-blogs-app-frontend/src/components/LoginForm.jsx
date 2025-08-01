@@ -28,7 +28,7 @@ const LoginForm = ({ setUser, onSwitchToRegister }) => {
         <h2 className={styles.loginTitle}>Welcome to BlogHub</h2>
         <p className={styles.loginSubtitle}>Sign in to create and manage your blogs</p>
         
-        {error && <div className={styles.errorMessage}>{error}</div>}
+        {error && <div id="error" className={styles.errorMessage}>{error}</div>}
         
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.inputGroup}>

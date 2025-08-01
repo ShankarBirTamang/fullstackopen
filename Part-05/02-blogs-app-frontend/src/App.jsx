@@ -20,7 +20,7 @@ const App = () => {
   const addBlog = async (blogObject) => {
     try {
       const newBlog = await blogService.create(blogObject,user.token);
-      setBlogs(blogs.concat(newBlog));
+      setBlogs(blogs.concat(newBlog.data));
       blogFormRef.current.toggleVisibility();
     } catch (error) {
       console.error('Error adding blog:', error);

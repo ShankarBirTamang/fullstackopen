@@ -7,6 +7,7 @@ const { errorHandler, requestLogger } = require("./utils/middleware");
 const routes = require("./controller/blogs");
 const userRoutes = require("./controller/users");
 const loginRouter = require("./controller/login");
+
 const app = express();
 const cors = require("cors");
 const { tokenExtractor } = require("./utils/authMiddleware");
@@ -24,6 +25,10 @@ app.use(tokenExtractor);
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
 console.log("NODE_ENV is ", process.env.NODE_ENV);
+if (process.env.NODE_ENV === "test") {
+  const testingRoutes = require("./controller/testing");
+  app.use("/api/testing", testingRoutes);
+}
 app.use("/api/blogs", routes);
 app.use("/api/users", userRoutes);
 
