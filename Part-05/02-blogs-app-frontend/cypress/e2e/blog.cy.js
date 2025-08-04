@@ -79,7 +79,7 @@ describe("Note ", function () {
       cy.contains("hide").should("be.visible");
     });
 
-    it.only("A blog can be liked", function () {
+    it("A blog can be liked", function () {
       // First create a blog
       cy.contains("Create New Blog").click();
       cy.get("#title").type("Likeable Blog");
@@ -101,6 +101,36 @@ describe("Note ", function () {
 
       // Wait for the likes count to update to 1
       cy.contains("1").should("be.visible");
+    });
+
+    it("A blog can be deleted by its creator", function () {
+      // First create a blog
+      cy.contains("Create New Blog").click();
+      cy.get("#title").type("Deletable Blog");
+      cy.get("#author").type("Test Author");
+      cy.get("#url").type("www.deletableblog.com");
+      cy.get("#createBlog").click();
+
+      // Wait for the blog to appear
+      cy.contains("Deletable Blog").should("be.visible");
+
+      // Click "view" to expand the blog details
+      cy.contains("view").click();
+
+      // Check that the delete button is visible (since we're the creator)
+      cy.get('[class*="deleteButton"]').should("be.visible");
+
+      // Click the delete button
+      cy.get('[class*="deleteButton"]').click();
+
+      // Confirm the deletion in the confirmation dialog
+      cy.on("window:confirm", () => true);
+
+      // Wait for the blog to be removed from the list
+      cy.contains("Deletable Blog").should("not.exist");
+
+      // Verify the blog count is back to 0
+      cy.contains("No blogs yet").should("be.visible");
     });
   });
 });

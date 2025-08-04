@@ -1,7 +1,7 @@
 import styles from '../styles/BlogList.module.css';
 import Blog from './Blog';
 
-const BlogList = ({ blogs, onLike }) => (
+const BlogList = ({ blogs, onLike, onDelete, user }) => (
   <div className={styles.container}>
     <h2 className={styles.title}>
       <span className={styles.titleIcon}>📚</span>
@@ -28,6 +28,8 @@ const BlogList = ({ blogs, onLike }) => (
             blog={blog} 
             isLast={index === blogs.length - 1}
             onLike={onLike}
+            onDelete={onDelete}
+            user={user}
           />
         ))}
       </div>

@@ -69,6 +69,16 @@ const handleLike = async (blog) => {
 };
 
 
+  const handleDelete = async (blogId) => {
+    try {
+      await blogService.remove(blogId, user.token);
+      setBlogs(blogs.filter(blog => blog.id !== blogId));
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+      alert('Failed to delete blog. You may not have permission to delete this blog.');
+    }
+  };
+
   const handleLogout = () => {
     setUser(null);
   };
@@ -131,7 +141,7 @@ const handleLike = async (blog) => {
           </div>
           
           <div className={styles.blogsSection}>
-            <BlogList blogs={blogs} onLike={handleLike} />
+            <BlogList blogs={blogs} onLike={handleLike} onDelete={handleDelete} user={user} />
           </div>
         </div>
       </main>

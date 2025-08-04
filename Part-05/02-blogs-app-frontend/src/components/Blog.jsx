@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/BlogList.module.css';
 
-const Blog = ({ blog, isLast, onLike }) => {
+const Blog = ({ blog, isLast, onLike, onDelete, user }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
@@ -11,6 +11,15 @@ const Blog = ({ blog, isLast, onLike }) => {
   const handleLikeClick = () => {
     onLike(blog);
   };
+
+  const handleDeleteClick = () => {
+    if (window.confirm(`Remove blog "${blog.title}" by ${blog.author}?`)) {
+      onDelete(blog.id);
+    }
+  };
+
+  // Check if the current user is the creator of this blog
+  const isOwner = user && blog.user && (blog.user.id === user.id || blog.user === user.id);
 
   return (
     <div 
@@ -46,6 +55,15 @@ const Blog = ({ blog, isLast, onLike }) => {
           </button>
            {blog.likes || 0}
          </span>
+         {isOwner && (
+           <button 
+             onClick={handleDeleteClick}
+             className={styles.deleteButton}
+           >
+             <span className={styles.deleteIcon}>🗑️</span>
+             Delete
+           </button>
+         )}
        </div>
       )}
 
