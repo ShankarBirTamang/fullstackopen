@@ -17,6 +17,9 @@ const App = () => {
     blogService.getAll().then(setBlogs);
   }, []);
 
+  // Sort blogs by likes (most likes first)
+  const sortedBlogs = [...blogs].sort((a, b) => (b.likes || 0) - (a.likes || 0));
+
   const addBlog = async (blogObject) => {
     try {
       const newBlog = await blogService.create(blogObject,user.token);
@@ -30,7 +33,6 @@ const App = () => {
 
 const handleLike = async (blog) => {
   try {
-    console.log('Liking blog:', blog); // Debug log
     
     const blogData = {
       likes: (blog.likes || 0) + 1,
@@ -44,11 +46,11 @@ const handleLike = async (blog) => {
       }
       
     
-    console.log('Sending blog data:', blogData); // Debug log
+    // console.log('Sending blog data:', blogData); // Debug log
     
     const updatedBlog = await blogService.like(blog.id, blogData);
     
-    console.log('Updated blog:', updatedBlog); // Debug log
+    // console.log('Updated blog:', updatedBlog); // Debug log
     
     // Check if the response is valid
     if (updatedBlog && updatedBlog.id) {
@@ -141,7 +143,7 @@ const handleLike = async (blog) => {
           </div>
           
           <div className={styles.blogsSection}>
-            <BlogList blogs={blogs} onLike={handleLike} onDelete={handleDelete} user={user} />
+            <BlogList blogs={sortedBlogs} onLike={handleLike} onDelete={handleDelete} user={user} />
           </div>
         </div>
       </main>

@@ -122,7 +122,13 @@ routes.post("/", userExtractor, async (req, res, next) => {
     // add the blog to the user's blogs
     user.blogs = user.blogs.concat(savedBlog.id);
     await user.save();
-    res.status(201).json(savedBlog);
+
+    // ✅ Populate the user data before sending response
+    const populatedBlog = await savedBlog.populate("user", {
+      username: true,
+      name: true,
+    });
+    res.status(201).json(populatedBlog);
   } catch (error) {
     next(error);
   }

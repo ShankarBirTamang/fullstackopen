@@ -18,12 +18,38 @@ const Blog = ({ blog, isLast, onLike, onDelete, user }) => {
     }
   };
 
+    // Check if the current user is the creator of this blog
+
+  // Extract user ID from JWT token
+  const getUserIdFromToken = (token) => {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('JWT Payload:', payload); // Add this debug line
+      return payload.id;
+    } catch (error) {
+      console.error('Error parsing JWT token:', error);
+      return null;
+    }
+  };
+
   // Check if the current user is the creator of this blog
-  const isOwner = user && blog.user && (blog.user.id === user.id || blog.user === user.id);
+  const currentUserId = user && user.token ? getUserIdFromToken(user.token) : null;
+  const isOwner = currentUserId && blog.user && blog.user === currentUserId;
+
+  // Enhanced debug logging
+  // console.log('Blog component debug:', {
+  //   blogId: blog.id,
+  //   blogUser: blog.user,
+  //   // blogUserId: blog.user?.id,
+  //   currentUser: user,
+  //   currentUserId: currentUserId,
+  //   isOwner: isOwner,
+  //   // comparison: `${blog.user?.id} === ${currentUserId}`
+  // });
 
   return (
     <div 
-      className={`${styles.blogCard} ${isLast ? styles.new : ''} ${showDetails ? styles.expanded : ''}`}
+      className={`${styles.blogCard} ${isLast ? styles.new : ''} ${showDetails ? styles.expanded : ''} blog`}
     >
       <div className={styles.blogHeader}>
         <div className={styles.blogTitleRow}>
@@ -43,7 +69,7 @@ const Blog = ({ blog, isLast, onLike, onDelete, user }) => {
       {showDetails && (
          <div className={styles.blogMeta}>
          <span className={styles.author}>
-           <span className={styles.authorIcon}>��</span>
+           <span className={styles.authorIcon}>👤</span>
            {blog.author || 'Anonymous'}
          </span>
          <span className={styles.likes}>
