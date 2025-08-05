@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
 
-// schema for Blog
-const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: {
-    type: Number,
-    default: 0,
+// schema for Note
+const noteSchema = new mongoose.Schema({
+  content: {
+    type: String,
+    required: true,
+    minlength: 5,
   },
+  correct: Boolean,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 });
 
-blogSchema.set("toJSON", {
+noteSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -23,6 +22,5 @@ blogSchema.set("toJSON", {
   },
 });
 
-const Blog = mongoose.model("Blog", blogSchema);
-
-module.exports = Blog;
+const Note = mongoose.model("Note", noteSchema);
+module.exports = Note;

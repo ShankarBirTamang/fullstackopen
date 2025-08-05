@@ -1,0 +1,457 @@
+/* Modern CSS Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+}
+
+.header {
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 0;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.02em;
+}
+
+.titleIcon {
+  font-size: 4rem;
+}
+
+.icon {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: rgba(248, 250, 252, 0.8);
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.main {
+  padding: 3rem 0;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  gap: 3rem;
+}
+
+.formSection {
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blogsSection {
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoutButton {
+  padding: 0.75rem 1.5rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.logoutButton:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.logoutIcon {
+  font-size: 0.9rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #94a3b8;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  border: 2px dashed #475569;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e2e8f0;
+}
+
+.emptyText {
+  font-size: 1.1rem;
+  color: #94a3b8;
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: dense;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  align-items: start; 
+}
+
+.blogCard {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100px;
+  height : auto;
+  grid-column: auto;
+  grid-row: auto;
+}
+
+.blogCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(15, 23, 42, 1);
+}
+
+
+.blogCard.expanded {
+  grid-row: span 2;
+}
+
+
+.blogHeader {
+  flex: 0 0 auto;
+  margin-bottom: 0.5rem;
+}
+
+.blogTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 2; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blogMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  flex: 0 0 auto;
+}
+
+.author,
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.authorIcon,
+.likesIcon {
+  font-size: 0.8rem;
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.deleteButton {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.deleteButton:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: translateY(-1px);
+}
+
+.deleteIcon {
+  font-size: 1rem;
+}
+
+.blogLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  margin-top: auto;
+}
+
+.blogLink:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.linkIcon {
+  font-size: 0.8rem;
+}
+.blogTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+.blogTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.4;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 2; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0; /* Remove the bottom margin since it's handled by the row */
+  flex: 1; /* Allow title to take available space */
+}
+/* Blog count indicator */
+.blogCount {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  color: #93c5fd;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.toggleButton {
+  background: #343536;
+  color: white;
+  border: 1px solid #343536;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggleButton:hover {
+  background: #85b6e7;
+  color: rgb(75, 68, 68);
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .content {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+  
+  .formSection,
+  .blogsSection {
+    padding: 1.5rem;
+  }
+  
+  .headerContent {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .headerLeft {
+    align-items: center;
+  }
+  
+  .headerRight {
+    justify-content: center;
+  }
+  
+  .logoutButton {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .blogGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .blogCard {
+    padding: 1.25rem;
+    min-height: 160px;
+  }
+  
+  .blogTitle {
+    font-size: 1.1rem;
+  }
+  
+  .blogMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .emptyState {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blogCard {
+    padding: 1rem;
+  }
+  
+  .blogTitle {
+    font-size: 1rem;
+  }
+  
+  .blogMeta {
+    font-size: 0.85rem;
+  }
+}
+
+/* Loading state */
+.blogCard.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Animation for new blogs */
+.blogCard.new {
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
