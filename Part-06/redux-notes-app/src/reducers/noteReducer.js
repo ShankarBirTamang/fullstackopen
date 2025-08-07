@@ -6,7 +6,7 @@ const notesReducer = (state = [], action) => {
       return state.concat(action.payload);
     case "TOGGLE_IMPORTANCE":
       return state.map((note) =>
-        note.id === action.payload.id
+        note.id === action.payload
           ? {
               ...note,
               important: !note.important,
@@ -16,6 +16,21 @@ const notesReducer = (state = [], action) => {
     default:
       return state;
   }
+};
+
+// action creator
+export const toggleImportanceOf = (id) => {
+  return {
+    type: "TOGGLE_IMPORTANCE",
+    payload: id,
+  };
+};
+
+export const createNote = (newNote) => {
+  return {
+    type: "NEW_NOTE",
+    payload: newNote,
+  };
 };
 
 export default notesReducer;
