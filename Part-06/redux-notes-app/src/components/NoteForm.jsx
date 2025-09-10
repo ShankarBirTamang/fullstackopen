@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state);
+  const notes = useSelector((state) => state.notes);
   // event handler
   const addNote = (event) => {
     event.preventDefault();
