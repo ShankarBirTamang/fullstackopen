@@ -13,5 +13,14 @@ const notificationSlice = createSlice({
   },
 });
 
+export const setNotificationWithThunk = (message, duration) => {
+  return (dispatch) => {
+    dispatch(setNotification(message));
+    setTimeout(() => {
+      dispatch(clearNotification());
+    }, duration * 1000);
+  };
+};
+
 export const { setNotification, clearNotification } = notificationSlice.actions;
 export default notificationSlice.reducer;

@@ -1,9 +1,6 @@
 import { useDispatch } from "react-redux";
 import { createAnecdoteWithThunk } from "../reducers/anecdoteReducer";
-import {
-  setNotification,
-  clearNotification,
-} from "../reducers/notificationReducer";
+import { setNotificationWithThunk } from "../reducers/notificationReducer";
 const getId = () => (100000 * Math.random()).toFixed(0);
 
 const AnecdoteForm = () => {
@@ -20,12 +17,9 @@ const AnecdoteForm = () => {
       votes: 0,
     };
     dispatch(createAnecdoteWithThunk(newAnecdote));
-    dispatch(setNotification(`you created "${newAnecdote.content}"`));
-
-    //clear notification after 5 seconds
-    setTimeout(() => {
-      dispatch(clearNotification());
-    }, 5000);
+    dispatch(
+      setNotificationWithThunk(`you created "${newAnecdote.content}"`, 5)
+    );
   };
 
   return (

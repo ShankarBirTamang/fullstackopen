@@ -1,9 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { updateAnecdoteWithThunk } from "../reducers/anecdoteReducer";
-import {
-  setNotification,
-  clearNotification,
-} from "../reducers/notificationReducer";
+import { setNotificationWithThunk } from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
@@ -19,12 +16,9 @@ const AnecdoteList = () => {
     };
     dispatch(updateAnecdoteWithThunk(votedAnecdote));
 
-    dispatch(setNotification(`you voted for "${votedAnecdote.content}"`));
-
-    //clear notification after 5 seconds
-    setTimeout(() => {
-      dispatch(clearNotification());
-    }, 5000);
+    dispatch(
+      setNotificationWithThunk(`you voted for "${votedAnecdote.content}"`, 5)
+    );
   };
 
   //sort anecdotes by votes in descending order ( highest votes first)
