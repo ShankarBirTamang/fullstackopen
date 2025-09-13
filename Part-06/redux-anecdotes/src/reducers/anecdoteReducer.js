@@ -66,6 +66,13 @@ export const createAnecdoteWithThunk = (anecdote) => {
   };
 };
 
+export const updateAnecdoteWithThunk = (anecdote) => {
+  return async (dispatch) => {
+    const updatedAnecdote = await anecdotesService.update(anecdote);
+    dispatch(updateAnecdote(updatedAnecdote));
+  };
+};
+
 export default anecdoteSlice.reducer;
 export const { voteFor, createAnecdote, getAllAnecdotes, updateAnecdote } =
   anecdoteSlice.actions;
