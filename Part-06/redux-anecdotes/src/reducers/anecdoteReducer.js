@@ -51,10 +51,18 @@ const anecdoteSlice = createSlice({
   },
 });
 
+//async thunk action creator
 export const initializeAnecdotesWithThunk = () => {
   return async (dispatch) => {
     const anecdotes = await anecdotesService.getAll();
     dispatch(getAllAnecdotes(anecdotes));
+  };
+};
+
+export const createAnecdoteWithThunk = (anecdote) => {
+  return async (dispatch) => {
+    const createdAnecdote = await anecdotesService.create(anecdote);
+    dispatch(createAnecdote(createdAnecdote));
   };
 };
 

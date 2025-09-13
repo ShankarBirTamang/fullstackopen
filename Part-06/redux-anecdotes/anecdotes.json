@@ -34,6 +34,11 @@
       "id": "24148",
       "content": "new anecdote",
       "votes": 0
+    },
+    {
+      "id": "94542",
+      "content": "2nd anecdote",
+      "votes": 1
     }
   ]
 }

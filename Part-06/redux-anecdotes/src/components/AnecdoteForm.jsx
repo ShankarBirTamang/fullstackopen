@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
-import { createAnecdote } from "../reducers/anecdoteReducer";
-import anecdotesService from "../services/anecdotes";
+import { createAnecdoteWithThunk } from "../reducers/anecdoteReducer";
 import {
   setNotification,
   clearNotification,
@@ -20,9 +19,8 @@ const AnecdoteForm = () => {
       id: getId(),
       votes: 0,
     };
-    const createdAnecdote = await anecdotesService.create(newAnecdote);
-    dispatch(createAnecdote(createdAnecdote));
-    dispatch(setNotification(`you created "${createdAnecdote.content}"`));
+    dispatch(createAnecdoteWithThunk(newAnecdote));
+    dispatch(setNotification(`you created "${newAnecdote.content}"`));
 
     //clear notification after 5 seconds
     setTimeout(() => {
