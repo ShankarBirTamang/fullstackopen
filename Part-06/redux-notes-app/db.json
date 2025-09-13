@@ -11,19 +11,14 @@
       "id": "2"
     },
     {
-      "id": "853a",
-      "content": "hello",
-      "important": true
-    },
-    {
-      "id": "daa6",
-      "content": "hello",
-      "important": false
-    },
-    {
       "id": "3085",
       "content": "action reaches reducers",
       "important": true
+    },
+    {
+      "id": "7181",
+      "content": "action reaches reducers",
+      "important": false
     }
   ]
 }
