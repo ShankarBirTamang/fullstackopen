@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { createAnecdote } from "../reducers/anecdoteReducer";
+import anecdotesService from "../services/anecdotes";
 import {
   setNotification,
   clearNotification,
@@ -9,18 +10,19 @@ const getId = () => (100000 * Math.random()).toFixed(0);
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
-  const addAnecdote = (e) => {
+  const addAnecdote = async (e) => {
     e.preventDefault();
-    const newAnecdote = e.target.newAnecdote.value;
+    const content = e.target.newAnecdote.value;
     e.target.newAnecdote.value = "";
-    console.log("newAnecdote :", newAnecdote);
-    const newNote = {
-      content: newAnecdote,
+    console.log("newAnecdote :", content);
+    const newAnecdote = {
+      content,
       id: getId(),
       votes: 0,
     };
-    dispatch(createAnecdote(newNote));
-    dispatch(setNotification(`you created "${newAnecdote}"`));
+    const createdAnecdote = await anecdotesService.create(newAnecdote);
+    dispatch(createAnecdote(createdAnecdote));
+    dispatch(setNotification(`you created "${createdAnecdote.content}"`));
 
     //clear notification after 5 seconds
     setTimeout(() => {

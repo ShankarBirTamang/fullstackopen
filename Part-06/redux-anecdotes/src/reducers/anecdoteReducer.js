@@ -40,9 +40,16 @@ const anecdoteSlice = createSlice({
       console.log("action in getAllAnecdotes", action);
       return action.payload;
     },
+    updateAnecdote: (state, action) => {
+      console.log("action in updateAnecdote", action);
+      const updatedAnecdote = action.payload;
+      return state.map((anecdote) =>
+        anecdote.id === updatedAnecdote.id ? updatedAnecdote : anecdote
+      );
+    },
   },
 });
 
 export default anecdoteSlice.reducer;
-export const { voteFor, createAnecdote, getAllAnecdotes } =
+export const { voteFor, createAnecdote, getAllAnecdotes, updateAnecdote } =
   anecdoteSlice.actions;
