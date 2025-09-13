@@ -33,6 +33,7 @@ const anecdoteSlice = createSlice({
       );
     },
     createAnecdote: (state, action) => {
+      console.log("action in createAnecdote", action);
       return state.concat(action.payload);
     },
   },

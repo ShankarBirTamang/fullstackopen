@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { voteFor } from "../reducers/anecdoteReducer";
+import {
+  setNotification,
+  clearNotification,
+} from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
@@ -9,6 +13,13 @@ const AnecdoteList = () => {
   const vote = (id) => {
     console.log("vote", id);
     dispatch(voteFor(id));
+    const votedAnecdote = anecdotes.find((anecdote) => anecdote.id === id);
+    dispatch(setNotification(`you voted for "${votedAnecdote.content}"`));
+
+    //clear notification after 5 seconds
+    setTimeout(() => {
+      dispatch(clearNotification());
+    }, 5000);
   };
 
   //sort anecdotes by votes in descending order ( highest votes first)
