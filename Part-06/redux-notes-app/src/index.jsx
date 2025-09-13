@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 // import { useState } from "react";
-import { createStore, combineReducers } from "redux";
 import noteReducer from "./reducers/noteReducer";
 import filterReducer from "./reducers/filterReducer";
 import { configureStore } from "@reduxjs/toolkit";
