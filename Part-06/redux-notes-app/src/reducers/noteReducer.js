@@ -23,16 +23,16 @@ const notesSlice = createSlice({
       const newState = state.concat(content);
       return newState;
     },
-    toggleImportanceOf(state, action) {
-      console.log("toggleImportanceOf", action);
-      const id = action.payload;
-      const noteToToggle = state.find((note) => note.id === id);
-      const toggledNote = {
-        ...noteToToggle,
-        important: !noteToToggle.important,
-      };
-      return state.map((note) => (note.id === id ? toggledNote : note));
-    },
+    // toggleImportanceOf(state, action) {
+    //   console.log("toggleImportanceOf", action);
+    //   const id = action.payload;
+    //   const noteToToggle = state.find((note) => note.id === id);
+    //   const toggledNote = {
+    //     ...noteToToggle,
+    //     important: !noteToToggle.important,
+    //   };
+    //   return state.map((note) => (note.id === id ? toggledNote : note));
+    // },
     initializeNotes(state, action) {
       console.log("initializeNotes", action);
       return action.payload;
