@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toggleImportanceOf, updateNote } from "../reducers/noteReducer";
-import noteService from "../services/notes";
+import { updateNoteWithThunk } from "../reducers/noteReducer";
 
 const Notes = () => {
   const filter = useSelector((state) => state.filter);
@@ -20,8 +19,7 @@ const Notes = () => {
       important: !noteToToggle.important,
     };
     console.log("updatedNote", updatedNote);
-    const note = await noteService.updateNote(id, updatedNote);
-    dispatch(updateNote(note));
+    dispatch(updateNoteWithThunk(id, updatedNote));
   };
 
   console.log("notes", notes);

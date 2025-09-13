@@ -1,38 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-// const initialState = [
-//   {
-//     content: "reducer defines how redux store works",
-//     important: true,
-//     id: 1,
-//   },
-//   {
-//     content: "state of store can contain any data",
-//     important: false,
-//     id: 2,
-//   },
-// ];
+import noteService from "../services/notes";
 
 const notesSlice = createSlice({
   name: "notes",
   initialState: [],
   reducers: {
-    createNote(state, action) {
-      console.log("createNote", action);
+    appendNote(state, action) {
+      console.log("appendNote", action);
       const content = action.payload;
       const newState = state.concat(content);
       return newState;
     },
-    // toggleImportanceOf(state, action) {
-    //   console.log("toggleImportanceOf", action);
-    //   const id = action.payload;
-    //   const noteToToggle = state.find((note) => note.id === id);
-    //   const toggledNote = {
-    //     ...noteToToggle,
-    //     important: !noteToToggle.important,
-    //   };
-    //   return state.map((note) => (note.id === id ? toggledNote : note));
-    // },
     initializeNotes(state, action) {
       console.log("initializeNotes", action);
       return action.payload;
@@ -47,6 +25,27 @@ const notesSlice = createSlice({
   },
 });
 
-export const { createNote, toggleImportanceOf, initializeNotes, updateNote } =
-  notesSlice.actions;
+//async thunk action creator
+export const getAllAndInitializeNotes = () => {
+  return async (dispatch) => {
+    const getAllNotes = await noteService.getAll();
+    dispatch(initializeNotes(getAllNotes));
+  };
+};
+
+export const createNewNoteWithThunk = (content) => {
+  return async (dispatch) => {
+    const newNote = await noteService.createNote(content);
+    dispatch(appendNote(newNote));
+  };
+};
+
+export const updateNoteWithThunk = (id, note) => {
+  return async (dispatch) => {
+    const updatedNote = await noteService.updateNote(id, note);
+    dispatch(updateNote(updatedNote));
+  };
+};
+
+export const { appendNote, initializeNotes, updateNote } = notesSlice.actions;
 export default notesSlice.reducer;
