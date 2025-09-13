@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 const NoteForm = () => {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes);
+
+  const generateId = () => {
+    return Math.round(Math.random() * 1000000);
+  };
   // event handler
   const addNote = (event) => {
     event.preventDefault();
@@ -14,7 +18,7 @@ const NoteForm = () => {
     const newNote = {
       content,
       important: true,
-      id: notes.length + 1,
+      id: generateId(),
     };
     dispatch(createNote(newNote));
   };
