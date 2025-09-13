@@ -1,55 +1,78 @@
-const anecdotesAtStart = [
-  "If it hurts, do it more often",
-  "Adding manpower to a late software project makes it later!",
-  "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
-  "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-  "Premature optimization is the root of all evil.",
-  "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
-];
+import { createSlice } from "@reduxjs/toolkit";
+import anecdotesService from "../services/anecdotes";
 
-const getId = () => (100000 * Math.random()).toFixed(0);
+// const anecdotesAtStart = [
+//   "If it hurts, do it more often",
+//   "Adding manpower to a late software project makes it later!",
+//   "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
+//   "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+//   "Premature optimization is the root of all evil.",
+//   "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+// ];
 
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0,
-  };
-};
+// const getId = () => (100000 * Math.random()).toFixed(0);
 
-const initialState = anecdotesAtStart.map(asObject);
+// const asObject = (anecdote) => {
+//   return {
+//     content: anecdote,
+//     id: getId(),
+//     votes: 0,
+//   };
+// };
 
-const reducer = (state = initialState, action) => {
-  console.log("state now: ", state);
-  console.log("action", action);
+// const initialState = anecdotesAtStart.map(asObject);
 
-  switch (action.type) {
-    case "VOTE":
+const anecdoteSlice = createSlice({
+  name: "anecdotes",
+  initialState: [],
+  reducers: {
+    voteFor: (state, action) => {
       return state.map((anecdote) =>
         anecdote.id === action.payload
           ? { ...anecdote, votes: anecdote.votes + 1 }
           : anecdote
       );
-    case "CREATE":
+    },
+    createAnecdote: (state, action) => {
+      console.log("action in createAnecdote", action);
       return state.concat(action.payload);
-    default:
-      return state;
-  }
-};
+    },
+    getAllAnecdotes: (state, action) => {
+      console.log("action in getAllAnecdotes", action);
+      return action.payload;
+    },
+    updateAnecdote: (state, action) => {
+      console.log("action in updateAnecdote", action);
+      const updatedAnecdote = action.payload;
+      return state.map((anecdote) =>
+        anecdote.id === updatedAnecdote.id ? updatedAnecdote : anecdote
+      );
+    },
+  },
+});
 
-//action creators
-export const voteFor = (id) => {
-  return {
-    type: "VOTE",
-    payload: id,
+//async thunk action creator
+export const initializeAnecdotesWithThunk = () => {
+  return async (dispatch) => {
+    const anecdotes = await anecdotesService.getAll();
+    dispatch(getAllAnecdotes(anecdotes));
   };
 };
 
-export const createAnecdote = (content) => {
-  return {
-    type: "CREATE",
-    payload: asObject(content),
+export const createAnecdoteWithThunk = (anecdote) => {
+  return async (dispatch) => {
+    const createdAnecdote = await anecdotesService.create(anecdote);
+    dispatch(createAnecdote(createdAnecdote));
   };
 };
 
-export default reducer;
+export const updateAnecdoteWithThunk = (anecdote) => {
+  return async (dispatch) => {
+    const updatedAnecdote = await anecdotesService.update(anecdote);
+    dispatch(updateAnecdote(updatedAnecdote));
+  };
+};
+
+export default anecdoteSlice.reducer;
+export const { voteFor, createAnecdote, getAllAnecdotes, updateAnecdote } =
+  anecdoteSlice.actions;

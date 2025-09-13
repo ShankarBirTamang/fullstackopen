@@ -1,22 +1,17 @@
 import React from "react";
-import { createNote } from "../reducers/noteReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { createNewNoteWithThunk } from "../reducers/noteReducer";
+import { useDispatch } from "react-redux";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state);
+
   // event handler
-  const addNote = (event) => {
+  const addNote = async (event) => {
     event.preventDefault();
     const content = event.target.myInput.value;
-    console.log(content);
+    console.log("form content:", content);
     event.target.myInput.value = "";
-    const newNote = {
-      content,
-      important: true,
-      id: notes.length + 1,
-    };
-    dispatch(createNote(newNote));
+    dispatch(createNewNoteWithThunk(content));
   };
   return (
     <form onSubmit={addNote}>

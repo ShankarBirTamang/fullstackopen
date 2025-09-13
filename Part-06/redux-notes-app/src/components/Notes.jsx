@@ -1,13 +1,27 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleImportanceOf } from "../reducers/noteReducer";
+import { updateNoteWithThunk } from "../reducers/noteReducer";
 
 const Notes = () => {
-  const notes = useSelector((state) => state);
+  const filter = useSelector((state) => state.filter);
+  const notes = useSelector((state) =>
+    filter === "ALL"
+      ? state.notes
+      : filter === "IMPORTANT"
+      ? state.notes.filter((note) => note.important)
+      : state.notes.filter((note) => !note.important)
+  );
   const dispatch = useDispatch();
-  const toggleImportance = (id) => {
-    dispatch(toggleImportanceOf(id));
+
+  const toggleImportance = async (id) => {
+    const noteToToggle = notes.find((note) => note.id === id);
+    const updatedNote = {
+      ...noteToToggle,
+      important: !noteToToggle.important,
+    };
+    console.log("updatedNote", updatedNote);
+    dispatch(updateNoteWithThunk(id, updatedNote));
   };
+
   console.log("notes", notes);
   return (
     <div>
