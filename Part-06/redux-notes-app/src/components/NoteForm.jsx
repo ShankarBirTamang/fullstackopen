@@ -1,6 +1,7 @@
 import React from "react";
 import { createNote } from "../reducers/noteReducer";
 import { useDispatch, useSelector } from "react-redux";
+import noteService from "../services/notes";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
@@ -10,16 +11,12 @@ const NoteForm = () => {
     return Math.round(Math.random() * 1000000);
   };
   // event handler
-  const addNote = (event) => {
+  const addNote = async (event) => {
     event.preventDefault();
     const content = event.target.myInput.value;
-    console.log(content);
+    console.log("form content:", content);
     event.target.myInput.value = "";
-    const newNote = {
-      content,
-      important: true,
-      id: generateId(),
-    };
+    const newNote = await noteService.createNote(content);
     dispatch(createNote(newNote));
   };
   return (
