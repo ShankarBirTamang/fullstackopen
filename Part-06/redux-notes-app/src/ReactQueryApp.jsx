@@ -7,21 +7,28 @@ const App = () => {
   const result = useQuery({
     queryKey: ["notes"],
     queryFn: getNotes,
+    refetchOnWindowFocus: false,
   });
 
   // useMutation for creating new note
   const newNoteMutation = useMutation({
     mutationFn: createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    onSuccess: (newNote) => {
+      // queryClient.invalidateQueries({ queryKey: ["notes"] });
+      const notes = queryClient.getQueryData(["notes"]);
+      queryClient.setQueryData(["notes"], notes.concat(newNote));
     },
   });
 
   // useMutation for updating existing note
   const updateNoteMutation = useMutation({
     mutationFn: updateNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    onSuccess: (updatedNote) => {
+      queryClient.setQueryData(["notes"], (oldNotes) =>
+        oldNotes.map((note) =>
+          note.id === updatedNote.id ? updatedNote : note
+        )
+      );
     },
   });
 
