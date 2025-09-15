@@ -19,6 +19,21 @@
       "id": "7181",
       "content": "action reaches reducers",
       "important": false
+    },
+    {
+      "id": "256f",
+      "content": "component dispatches action",
+      "important": true
+    },
+    {
+      "id": "52f2",
+      "content": "slice provides state,action, reducer as an object",
+      "important": true
+    },
+    {
+      "id": "72c7",
+      "content": "component dispatches action",
+      "important": true
     }
   ]
 }
