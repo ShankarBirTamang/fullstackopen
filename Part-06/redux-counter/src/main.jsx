@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
+import CounterContext from "./CounterContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -17,22 +18,28 @@ const counterReducer = (state = 10, action) => {
   return state;
 };
 
-const Display = ({ counter }) => <h1>Counter: {counter}</h1>;
+const Display = () => {
+  const { counter } = useContext(CounterContext);
+  return <h1>Counter: {counter}</h1>;
+};
 
-const Button = ({ dispatch, type, label }) => (
-  <button onClick={() => dispatch({ type })}>{label}</button>
-);
+const Button = ({ type, label }) => {
+  const { counterDispatch } = useContext(CounterContext);
+  return <button onClick={() => counterDispatch({ type })}>{label}</button>;
+};
 
 const App = () => {
   const [counter, counterDispatch] = useReducer(counterReducer, 10);
 
   return (
-    <div>
-      <Display counter={counter} />
-      <Button dispatch={counterDispatch} type="INCREMENT" label="+" />
-      <Button dispatch={counterDispatch} type="DECREMENT" label="-" />
-      <Button dispatch={counterDispatch} type="RESET" label="reset" />
-    </div>
+    <CounterContext.Provider value={{ counter, counterDispatch }}>
+      <div>
+        <Display />
+        <Button type="INCREMENT" label="+" />
+        <Button type="DECREMENT" label="-" />
+        <Button type="RESET" label="reset" />
+      </div>
+    </CounterContext.Provider>
   );
 };
 root.render(<App />);
