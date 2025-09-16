@@ -21,6 +21,16 @@ const App = () => {
       const anecdotes = queryClient.getQueryData(["anecdotes"]);
       queryClient.setQueryData(["anecdotes"], anecdotes.concat(newAnecdote));
     },
+    onError: (error) => {
+      console.error("Error creating anecdote:", error);
+      notificationDispatch({
+        type: "SET",
+        payload: `${error}`,
+      });
+      setTimeout(() => {
+        notificationDispatch({ type: "CLEAR" });
+      }, 5000);
+    },
   });
 
   const voteMutation = useMutation({
@@ -45,10 +55,10 @@ const App = () => {
     event.preventDefault();
     const content = event.target.newAnecdote.value;
     event.target.newAnecdote.value = "";
-    if (content.length < 5) {
-      alert("Anecdote must be at least 5 characters long.");
-      return;
-    }
+    // if (content.length < 5) {
+    //   alert("Anecdote must be at least 5 characters long.");
+    //   return;
+    // }
     console.log("newAnecdote :", content);
     createAnecdoteMutation.mutate({ content, votes: 0 });
     notificationDispatch({ type: "SET", payload: `You added '${content}'` });
