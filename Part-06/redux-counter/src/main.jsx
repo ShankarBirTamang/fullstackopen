@@ -19,17 +19,13 @@ const counterReducer = (state = 10, action) => {
 
 const App = () => {
   const [counter, counterDispatch] = useReducer(counterReducer, 10);
-  const handleIncrement = () => {
-    counterDispatch({ type: "INCREMENT" });
-  };
-  const handleDecrement = () => counterDispatch({ type: "DECREMENT" });
-  const handleReset = () => counterDispatch({ type: "RESET" });
+
   return (
     <div>
       <h1>Counter: {counter}</h1>
-      <button onClick={handleIncrement}>+</button>
-      <button onClick={handleDecrement}>-</button>
-      <button onClick={handleReset}>Reset</button>
+      <button onClick={() => counterDispatch({ type: "INCREMENT" })}>+</button>
+      <button onClick={() => counterDispatch({ type: "DECREMENT" })}>-</button>
+      <button onClick={() => counterDispatch({ type: "RESET" })}>Reset</button>
     </div>
   );
 };
