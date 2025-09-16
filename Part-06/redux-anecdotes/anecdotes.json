@@ -38,7 +38,22 @@
     {
       "id": "94542",
       "content": "2nd anecdote",
-      "votes": 2
+      "votes": 7
+    },
+    {
+      "id": "522e",
+      "content": "3rd anecdote",
+      "votes": 0
+    },
+    {
+      "id": "e04a",
+      "content": "new anecdote",
+      "votes": 11
+    },
+    {
+      "id": "8489",
+      "content": "1sdf",
+      "votes": 0
     }
   ]
 }

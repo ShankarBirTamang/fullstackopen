@@ -18,7 +18,52 @@
     {
       "id": "7181",
       "content": "action reaches reducers",
+      "important": true
+    },
+    {
+      "id": "256f",
+      "content": "component dispatches action",
+      "important": true
+    },
+    {
+      "id": "52f2",
+      "content": "slice provides state,action, reducer as an object",
       "important": false
+    },
+    {
+      "id": "72c7",
+      "content": "component dispatches action",
+      "important": true
+    },
+    {
+      "id": "3cfe",
+      "content": "slice provides state,action, reducer as an object",
+      "important": true
+    },
+    {
+      "id": "5ed0",
+      "content": "component dispatches action",
+      "important": true
+    },
+    {
+      "id": "101c",
+      "content": "slice provides state,action, reducer as an object",
+      "important": true
+    },
+    {
+      "id": "7cc4",
+      "content": "component dispatches action",
+      "important": true
+    },
+    {
+      "id": "34d3",
+      "content": "slice provides state,action, reducer as an object",
+      "important": true
+    },
+    {
+      "id": "3dca",
+      "content": "action reaches reducers",
+      "important": true
     }
   ]
 }
