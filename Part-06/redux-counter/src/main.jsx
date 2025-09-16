@@ -17,15 +17,21 @@ const counterReducer = (state = 10, action) => {
   return state;
 };
 
+const Display = ({ counter }) => <h1>Counter: {counter}</h1>;
+
+const Button = ({ dispatch, type, label }) => (
+  <button onClick={() => dispatch({ type })}>{label}</button>
+);
+
 const App = () => {
   const [counter, counterDispatch] = useReducer(counterReducer, 10);
 
   return (
     <div>
-      <h1>Counter: {counter}</h1>
-      <button onClick={() => counterDispatch({ type: "INCREMENT" })}>+</button>
-      <button onClick={() => counterDispatch({ type: "DECREMENT" })}>-</button>
-      <button onClick={() => counterDispatch({ type: "RESET" })}>Reset</button>
+      <Display counter={counter} />
+      <Button dispatch={counterDispatch} type="INCREMENT" label="+" />
+      <Button dispatch={counterDispatch} type="DECREMENT" label="-" />
+      <Button dispatch={counterDispatch} type="RESET" label="reset" />
     </div>
   );
 };
