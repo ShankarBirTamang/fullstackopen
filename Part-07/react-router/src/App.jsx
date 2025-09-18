@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Link, Navigate, useMatch } from "react-router-dom";
 import Notes from "./components/Notes";
 import Note from "./components/Note";
 import Login from "./components/Login";
@@ -59,8 +53,11 @@ const App = () => {
     padding: 5,
   };
 
+  const match = useMatch("/notes/:id");
+  const note = match ? notes.find((note) => note.id === match.params.id) : null;
+
   return (
-    <Router>
+    <>
       <div>
         <Link style={padding} to="/">
           home
@@ -81,7 +78,7 @@ const App = () => {
       </div>
 
       <Routes>
-        <Route path="/notes/:id" element={<Note notes={notes} />} />
+        <Route path="/notes/:id" element={<Note note={note} />} />
         <Route path="/notes" element={<Notes notes={notes} />} />
         <Route
           path="/users"
@@ -96,7 +93,7 @@ const App = () => {
       <div>
         <i>Note app, Department of Computer Science 2025</i>
       </div>
-    </Router>
+    </>
   );
 };
 

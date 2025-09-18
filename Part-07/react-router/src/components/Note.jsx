@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 
-const Note = ({ notes }) => {
-  const id = useParams().id;
-  const note = notes.find((n) => n.id === id);
+const Note = ({ note }) => {
+  // const id = useParams().id;
+  // const note = notes.find((n) => n.id === id);
   if (!note) {
     return <div>note not found</div>;
   }
