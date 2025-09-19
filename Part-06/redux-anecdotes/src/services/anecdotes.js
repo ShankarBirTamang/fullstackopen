@@ -8,6 +8,9 @@ const getAll = async () => {
 };
 
 const create = async (newAnecdote) => {
+  if (newAnecdote.content.length < 5) {
+    throw new Error("Anecdote must be at least 5 characters long.");
+  }
   const response = await axios.post(baseUrl, newAnecdote);
   return response.data;
 };
