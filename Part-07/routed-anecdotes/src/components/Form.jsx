@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useField } from "../hooks";
 
 export const CreateNew = (props) => {
-  const contentField = useField("content");
-  const authorField = useField("author");
-  const infoField = useField("info");
+  const { reset: resetContent, ...contentField } = useField("content");
+  const { reset: resetAuthor, ...authorField } = useField("author");
+  const { reset: resetInfo, ...infoField } = useField("info");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,9 +17,9 @@ export const CreateNew = (props) => {
   };
 
   const handleReset = () => {
-    contentField.reset();
-    authorField.reset();
-    infoField.reset();
+    resetContent();
+    resetAuthor();
+    resetInfo();
   };
 
   return (
