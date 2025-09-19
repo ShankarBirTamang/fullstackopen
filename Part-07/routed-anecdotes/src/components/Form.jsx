@@ -2,9 +2,6 @@ import { useState } from "react";
 import { useField } from "../hooks";
 
 export const CreateNew = (props) => {
-  //   const [content, setContent] = useState("");
-  //   const [author, setAuthor] = useState("");
-  //   const [info, setInfo] = useState("");
   const contentField = useField("content");
   const authorField = useField("author");
   const infoField = useField("info");
@@ -17,6 +14,12 @@ export const CreateNew = (props) => {
       info: infoField.value,
       votes: 0,
     });
+  };
+
+  const handleReset = () => {
+    contentField.reset();
+    authorField.reset();
+    infoField.reset();
   };
 
   return (
@@ -35,7 +38,11 @@ export const CreateNew = (props) => {
           url for more info
           <input {...infoField} />
         </div>
-        <button>create</button>
+
+        <button type="submit">create</button>
+        <button type="reset" onClick={handleReset}>
+          reset
+        </button>
       </form>
     </div>
   );
