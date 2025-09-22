@@ -49,6 +49,7 @@ const notesAtStart = [
 const App = () => {
   const [user, setUser] = useState(null);
   const [notes, setNotes] = useState(notesAtStart);
+
   const padding = {
     padding: 5,
   };
@@ -57,7 +58,7 @@ const App = () => {
   const note = match ? notes.find((note) => note.id === match.params.id) : null;
 
   return (
-    <>
+    <div className="container">
       <div>
         <Link style={padding} to="/">
           home
@@ -87,13 +88,16 @@ const App = () => {
           }
         />
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route
+          path="/login"
+          element={<Login user={user} setUser={setUser} />}
+        />
       </Routes>
 
       <div>
         <i>Note app, Department of Computer Science 2025</i>
       </div>
-    </>
+    </div>
   );
 };
 
