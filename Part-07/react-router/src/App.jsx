@@ -4,6 +4,15 @@ import Notes from "./components/Notes";
 import Note from "./components/Note";
 import Login from "./components/Login";
 import { Navbar, Nav } from "react-bootstrap";
+import {
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from "@mui/material";
 
 const Home = () => (
   <div>
@@ -67,7 +76,7 @@ const App = () => {
   const note = match ? notes.find((note) => note.id === match.params.id) : null;
 
   return (
-    <div className="container">
+    <Container>
       <Navbar collapseOnSelect expand="lg">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -124,7 +133,7 @@ const App = () => {
       <div>
         <i>Note app, Department of Computer Science 2025</i>
       </div>
-    </div>
+    </Container>
   );
 };
 
