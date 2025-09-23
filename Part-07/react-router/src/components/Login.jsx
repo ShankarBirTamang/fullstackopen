@@ -1,13 +1,13 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, setMessage }) => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("username", event.target.username.value);
     setUser(event.target.username.value);
+    setMessage(`welcome ${event.target.username.value}`);
     console.log("password", event.target.password.value);
     navigate("/notes");
   };

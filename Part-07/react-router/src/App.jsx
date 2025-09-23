@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate, useMatch } from "react-router-dom";
 import Notes from "./components/Notes";
 import Note from "./components/Note";
@@ -49,6 +49,14 @@ const notesAtStart = [
 const App = () => {
   const [user, setUser] = useState(null);
   const [notes, setNotes] = useState(notesAtStart);
+  let [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const padding = {
     padding: 5,
@@ -80,7 +88,12 @@ const App = () => {
 
       <Routes>
         <Route path="/notes/:id" element={<Note note={note} />} />
-        <Route path="/notes" element={<Notes notes={notes} />} />
+        <Route
+          path="/notes"
+          element={
+            <Notes message={message} setMessage={setMessage} notes={notes} />
+          }
+        />
         <Route
           path="/users"
           element={
@@ -90,7 +103,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
-          element={<Login user={user} setUser={setUser} />}
+          element={<Login setMessage={setMessage} setUser={setUser} />}
         />
       </Routes>
 
