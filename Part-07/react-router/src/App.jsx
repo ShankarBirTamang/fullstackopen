@@ -3,6 +3,7 @@ import { Routes, Route, Link, Navigate, useMatch } from "react-router-dom";
 import Notes from "./components/Notes";
 import Note from "./components/Note";
 import Login from "./components/Login";
+import { Navbar, Nav } from "react-bootstrap";
 
 const Home = () => (
   <div>
@@ -67,24 +68,37 @@ const App = () => {
 
   return (
     <div className="container">
-      <div>
-        <Link style={padding} to="/">
-          home
-        </Link>
-        <Link style={padding} to="/notes">
-          notes
-        </Link>
-        <Link style={padding} to="/users">
-          users
-        </Link>
-        {user ? (
-          <em>{user} logged in</em>
-        ) : (
-          <Link style={padding} to="/login">
-            login
-          </Link>
-        )}
-      </div>
+      <Navbar collapseOnSelect expand="lg">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/">
+                home
+              </Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/notes">
+                notes
+              </Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/users">
+                users
+              </Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              {user ? (
+                <em style={padding}>{user} logged in</em>
+              ) : (
+                <Link style={padding} to="/login">
+                  login
+                </Link>
+              )}
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
 
       <Routes>
         <Route path="/notes/:id" element={<Note note={note} />} />
@@ -115,3 +129,27 @@ const App = () => {
 };
 
 export default App;
+
+/*
+<AppBar position="static">
+  <Toolbar>
+    <IconButton edge="start" color="inherit" aria-label="menu">
+    </IconButton>
+    <Button color="inherit">
+      <Link to="/">home</Link>
+    </Button>
+    <Button color="inherit">
+      <Link to="/notes">notes</Link>
+    </Button>
+    <Button color="inherit">
+      <Link to="/users">users</Link>
+    </Button>  
+    <Button color="inherit">
+      {user
+        ? <em>{user} logged in</em>
+        : <Link to="/login">login</Link>
+      }
+    </Button>                
+  </Toolbar>
+</AppBar>
+*/
