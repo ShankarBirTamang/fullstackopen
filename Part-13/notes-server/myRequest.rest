@@ -2,6 +2,13 @@ post http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-    "content":"note created...",
+    "content":"3rd note created..."
+}
+
+###
+put http://localhost:3001/api/notes/2
+Content-Type: application/json
+
+{
     "important":true
 }

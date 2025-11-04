@@ -26,6 +26,7 @@ Note.init(
     },
     important: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     date: {
       type: DataTypes.DATE,
@@ -39,11 +40,32 @@ Note.init(
   }
 );
 
+Note.sync();
+
 app.use(express.json());
 
 app.get("/api/notes", async (req, res) => {
   const notes = await Note.findAll();
   res.json(notes);
+});
+
+app.get("/api/notes/:id", async (req, res) => {
+  const note = await Note.findByPk(req.params.id);
+  if (note) {
+    res.json(note);
+  } else {
+    res.status(404).end();
+  }
+});
+app.put("/api/notes/:id", async (req, res) => {
+  const note = await Note.findByPk(req.params.id);
+  if (note) {
+    note.important = req.body.important;
+    await note.save();
+    res.json(note);
+  } else {
+    res.status(404).end();
+  }
 });
 
 app.post("/api/notes", async (req, res) => {
