@@ -1,0 +1,50 @@
+### Get all blogs
+GET http://localhost:3001/api/blogs
+
+### Get a blog by ID
+GET http://localhost:3001/api/blogs/1
+
+### Create blog 1
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "author": "Dan Abramov",
+  "url": "https://overreacted.io/on-let-vs-const",
+  "title": "On let vs const",
+  "likes": 10
+}
+
+### Create blog 2
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "author": "Laurenz Albe",
+  "url": "https://postgresql.vercel.app/gaps-in-sequences",
+  "title": "Gaps in sequences in PostgreSQL",
+  "likes": 4
+}
+
+### Create blog 3
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "author": "Sankar Tamang",
+  "url": "https://sankartamang.com/blogs/learning-node-express",
+  "title": "Learning Node.js and Express from Scratch",
+  "likes": 15
+}
+
+
+### Update a blog (for example, to change likes)
+PUT http://localhost:3001/api/blogs/1
+Content-Type: application/json
+
+{
+  "likes": 50
+}
+
+### Delete a blog
+DELETE http://localhost:3001/api/blogs/2
