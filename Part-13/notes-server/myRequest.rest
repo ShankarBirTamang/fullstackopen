@@ -12,3 +12,21 @@ Content-Type: application/json
 {
     "important":true
 }
+
+
+###
+post http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username":"Jangbu",
+    "name":"Jangbu Tamang"
+}
+###
+post http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username":"Jangbu",
+    "password":"secret"
+}
