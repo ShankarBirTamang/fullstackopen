@@ -39,7 +39,7 @@ Content-Type: application/json
 
 
 ### Update a blog (for example, to change likes)
-PUT http://localhost:3001/api/blogs/1
+PUT http://localhost:3001/api/blogs/5
 Content-Type: application/json
 
 {
